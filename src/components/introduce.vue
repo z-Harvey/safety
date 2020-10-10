@@ -79,6 +79,7 @@
 
 export default {
   name: 'listView',
+  mounted () { document.title = '平安生殖险' },
   data () {
       return {
           curr: 0,
