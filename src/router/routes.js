@@ -3,12 +3,13 @@ import li1 from '../components/view/li1'
 import li2 from '../components/view/li2'
 
 import fromView from '../components/fromView'
+
+import introduce from '../components/introduce'
+
 //配置路由，path就是你浏览器地址，component就是跟着你要显示的页面，/表示默认地址。
 export default [
-	{
-		path: '/',
-		component: fromView
-	},
+	{ path: '/', component: introduce },
+	{ path: '/fromView', component: fromView },
 	{
 		path: "/listView",
 		component: listView,
