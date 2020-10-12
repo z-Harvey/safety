@@ -29,7 +29,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
-                            <input type="file">
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -40,6 +40,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -50,6 +51,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -60,6 +62,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -70,6 +73,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -80,6 +84,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -90,6 +95,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -100,6 +106,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -110,6 +117,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
                         <div class="imgBox" v-else>
+                            <input type="file" @change="upFile('amh', $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -123,11 +131,28 @@
 </template>
 
 <script>
+import { upFileds, getToken } from '../../api/getApi'
+
 export default {
     name: 'from2',
     data () {
         return {
             radio: 1
+        }
+    },
+    mounted () {
+        getToken({ token: '' }).then(res => { this.token = res.data.ret })
+    },
+    methods: {
+        upFile(name, e) {
+            console.log(name)
+            console.log(e)
+            let param = new FormData()
+            param.append('token', this.token)
+            param.append('file', e.target.files[0])
+            upFileds(param).then(res => {
+                console.log(res)
+            })
         }
     }
 }
@@ -243,9 +268,18 @@ export default {
                         height:42px;
                         display: inline-block;
                         vertical-align: top;
+                        position: relative;
                         .add{ margin-top: 2px; width: 38px; height: 38px; vertical-align: top; }
                         .del{ margin-top: 7.5px; width: 25px; height: 27px; vertical-align: top; }
                         .img{ margin-top: 4px; width: 37px; height: 34px; margin-right: 22px; vertical-align: top; }
+                        input{
+                            width: 28px;
+                            height: 38px;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            opacity: 0;
+                        }
                     }
                 }
             }

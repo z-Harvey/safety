@@ -21,5 +21,16 @@ module.exports = {
                 ]
             }
         }
+    },
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://ywdapi.programdoglovelaugh.top',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '/'
+                }
+            }
+        }
     }
 }
