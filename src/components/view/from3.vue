@@ -2,42 +2,30 @@
     <div class="from3">
         <div class="lefDD">
             <div class="y q"></div>
-            <div class="g"></div>
-            <div class="y"></div>
             <div class="g sg"></div>
-            <div class="y"></div>
+            <div class="y q"></div>
+            <div class="g sg"></div>
+            <div class="y q"></div>
         </div>
         <div class="rig">
-            <div class="from1b">
-                <img class="bg" src="@/assets/from1_kp.png" alt="">
-                <div class="textBox">
-                    <div class="tit">填写基本信息</div>
-                    <div class="li">
-                        <div class="title">投保人：</div>
-                        <input type="text">
-                    </div>
-                    <div class="li">
-                        <div class="title">证件号码：</div>
-                        <input type="text">
-                    </div>
-                    <div class="li">
-                        <div class="title">是否为本人投保：</div>
-                        <div class="rodi r" @click="radio = 1">
-                            <img v-if="radio == 1" src="@/assets/from_xz.png" alt="">
-                            <img v-else src="@/assets/from_wxz.png" alt="">
-                            <span>是</span>
-                        </div>
-                        <div class="rodi" @click="radio = 2">
-                            <img v-if="radio == 2" src="@/assets/from_xz.png" alt="">
-                            <img v-else src="@/assets/from_wxz.png" alt="">
-                            <span>否</span>
-                        </div>
-                    </div>
+            <div class="from2b">
+                <img src="@/assets/from3_kp.png" alt="">
+                <div class="te">上传病例资料</div>
+            </div>
+            <div class="from2b">
+                <img src="@/assets/from3_kp.png" alt="">
+                <div class="te">上传病例资料</div>
+            </div>
+            <div class="from2c">
+                <img src="@/assets/from3_kpd.png" alt="">
+                <div class="te tes">
+                    <div class="tit">等待审核结果</div>
+                    <div class="test">预计24小时完成审核，审核结果将会在首页通知<br/>或前往“保单查询”服务中查看核保订单状态</div>
                 </div>
             </div>
-            <div class="from2b">上传病例资料</div>
-            <div class="from2b">等待审核结果</div>
         </div>
+        <div class="btn">下一步</div>
+        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
     </div>
 </template>
 
@@ -58,7 +46,7 @@ export default {
     .lefDD{
         width: 36px;
         padding-left: 32px;
-        padding-top: 166px;
+        padding-top: 82px;
         .y{
             margin: 0 auto;
             width: 36px;
@@ -79,81 +67,79 @@ export default {
         .sg{ height: 69px; }
     }
     .rig{
+        width: 659px;
         position: absolute;
         top: 6px;
-        left: 32px;
-        .from1b{
+        left: 91px;
+        padding-top: 71px;
+        .from2b{
+            margin-top: -32px;
             position: relative;
-            margin-bottom: 24px;
-            .bg{ width: 718px; height: 369px; }
-            .textBox{
+            font-size: 30px;
+            font-family: 苹方-简;
+            font-weight: normal;
+            line-height: 123px;
+            color: #3C84E8;
+            opacity: 0.5;
+            img{ width: 628px; height: 123px; }
+            .te{
+                width: calc(100% - 41px);
+                height: 100%;
                 position: absolute;
-                width: calc(100% - 100px);
-                height: calc(100% - 53px);
-                padding-top: 53px;
+                padding-left: 41px;
                 top: 0;
                 left: 0;
-                padding-left: 100px;
-                .tit{
-                    height: 42px;
-                    font-size: 30px;
-                    font-family: 苹方-简;
-                    font-weight: normal;
-                    line-height: 50px;
-                    color: #3C84E8;
-                    margin-bottom: 19px;
-                }
-                .li{
-                    margin-bottom: 23px;
-                    .title{
-                        min-width: 160px;
-                        height: 42px;
-                        font-size: 30px;
-                        font-family: 苹方-简;
-                        font-weight: normal;
-                        line-height: 50px;
-                        color: #666666;
-                        display: inline-block;
-                    }
-                    input{
-                        width: 323px;
-                        height: 49px;
-                        background: rgba(255, 255, 255, 0.8);
-                        opacity: 1;
-                        border-radius: 10px;
-                        border: none;
-                    }
-                    input:after{ border: none; }
-                    .rodi{
-                        display: inline-block;
-                        vertical-align: top;
-                        height: 42px;
-                        font-size: 30px;
-                        font-family: 苹方-简;
-                        font-weight: normal;
-                        line-height: 42px;
-                        color: #3C84E8;
-                        letter-spacing: 8px;
-                        img{ width: 32px; height: 32px; margin-top: 6px; margin-right: 20px; vertical-align: top; }
-                    }
-                    .r{ margin: 0 53px 0 29px; }
-                }
             }
         }
-        .from2b{
-            margin: 0 0 40px 65px;
-            width: 586px;
-            height: 123px;
-            background: #E3E4E6;
-            border-radius: 20px;
+        .from2c{
+            margin-top: -32px;
+            position: relative;
             font-size: 30px;
             font-family: 苹方-简;
             font-weight: normal;
             line-height: 50px;
-            color: #FFFFFF;
-            line-height: 123px;
-            padding-left: 35px;
+            color: #3C84E8;
+            .tit{ margin: 35px 0 18px 0; }
+            .test{
+                font-size: 24px;
+                font-family: 苹方-简;
+                font-weight: normal;
+                line-height: 34px;
+                color: #898B8D;
+            }
+            img{ width: 628px; height: 202px; }
+            .te{
+                width: calc(100% - 41px);
+                height: 100%;
+                position: absolute;
+                padding-left: 41px;
+                top: 0;
+                left: 0;
+            }
         }
+    }
+    .btn{
+        width: 686px;
+        height: 93px;
+        background: linear-gradient(180deg, #5289E7 0%, #2B65DE 100%);
+        box-shadow: 0px 3px 6px #449DFB;
+        border-radius: 20px;
+        font-size: 28px;
+        font-family: 苹方-简;
+        font-weight: normal;
+        line-height: 93px;
+        color: #FFFFFF;
+        text-align: center;
+        position: fixed;
+        bottom: 57px;
+        right: 32px;
+    }
+    .gdzx{
+        width: 91px;
+        height: 90px;
+        position: fixed;
+        bottom: 174px;
+        right: 53px;
     }
 }
 </style>

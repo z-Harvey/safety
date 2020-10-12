@@ -38,6 +38,8 @@
             <div class="from2">上传病例资料</div>
             <div class="from2">等待审核结果</div>
         </div>
+        <div class="btn">下一步</div>
+        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
     </div>
 </template>
 
@@ -154,6 +156,29 @@ export default {
             line-height: 123px;
             padding-left: 35px;
         }
+    }
+    .btn{
+        width: 686px;
+        height: 93px;
+        background: linear-gradient(180deg, #5289E7 0%, #2B65DE 100%);
+        box-shadow: 0px 3px 6px #449DFB;
+        border-radius: 20px;
+        font-size: 28px;
+        font-family: 苹方-简;
+        font-weight: normal;
+        line-height: 93px;
+        color: #FFFFFF;
+        text-align: center;
+        position: fixed;
+        bottom: 57px;
+        right: 32px;
+    }
+    .gdzx{
+        width: 91px;
+        height: 90px;
+        position: fixed;
+        bottom: 174px;
+        right: 53px;
     }
 }
 </style>

@@ -24,11 +24,92 @@
                     <div class="title">上传病例资料</div>
                     <div class="li">
                         <span>AMH（ng/ml）：</span>
-                        <div class="imgBox">
+                        <div class="imgBox" v-if="false">
                             <img class="img" src="@/assets/from2_img.png" alt="">
                             <img class="del" src="@/assets/from2_del.png" alt="">
                         </div>
-                        <div class="imgBox">
+                        <div class="imgBox" v-else>
+                            <input type="file">
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>FSH（mIU/mL）：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>AFC ：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>男方精液常规报告 ：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>男方染色体报告 ：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>女方染色体报告：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>女方染色体报告：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>被投保人身份证（正面）：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
+                            <img class="add" src="@/assets/from2_add.png" alt="">
+                        </div>
+                    </div>
+                    <div class="li">
+                        <span>被投保人身份证（反面）：</span>
+                        <div class="imgBox" v-if="true">
+                            <img class="img" src="@/assets/from2_img.png" alt="">
+                            <img class="del" src="@/assets/from2_del.png" alt="">
+                        </div>
+                        <div class="imgBox" v-else>
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -36,6 +117,8 @@
             </div>
             <div class="from3b">等待审核结果</div>
         </div>
+        <div class="btn">下一步</div>
+        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
     </div>
 </template>
 
@@ -160,15 +243,15 @@ export default {
                         height:42px;
                         display: inline-block;
                         vertical-align: top;
-                        .add{ margin-top: 2px; width: 38px; height: 38px; }
-                        .del{ margin-top: 7.5px; width: 25px; height: 27px; }
-                        .img{ margin-top: 4px; width: 37px; height: 34px; margin-right: 22px; }
+                        .add{ margin-top: 2px; width: 38px; height: 38px; vertical-align: top; }
+                        .del{ margin-top: 7.5px; width: 25px; height: 27px; vertical-align: top; }
+                        .img{ margin-top: 4px; width: 37px; height: 34px; margin-right: 22px; vertical-align: top; }
                     }
                 }
             }
         }
         .from3b{
-            margin: 0 0 40px 97px;
+            margin: 10px 0 40px 97px;
             width: 586px;
             height: 123px;
             background: #E3E4E6;
@@ -181,6 +264,27 @@ export default {
             line-height: 123px;
             padding-left: 35px;
         }
+    }
+    .btn{
+        width: 686px;
+        height: 93px;
+        background: linear-gradient(180deg, #5289E7 0%, #2B65DE 100%);
+        box-shadow: 0px 3px 6px #449DFB;
+        border-radius: 20px;
+        font-size: 28px;
+        font-family: 苹方-简;
+        font-weight: normal;
+        line-height: 93px;
+        color: #FFFFFF;
+        text-align: center;
+        margin: 200px auto 0;
+    }
+    .gdzx{
+        width: 91px;
+        height: 90px;
+        position: fixed;
+        bottom: 174px;
+        right: 53px;
     }
 }
 </style>
