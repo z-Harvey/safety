@@ -18,7 +18,7 @@ export default [
 	{ path: '/introduce', component: introduce },
 	{ path: '/introduce2', component: introduce2 },
 	{ path: '/fromView', component: fromView },
-	{ path: '/', component: BusService },
+	{ path: '/BusService', component: BusService },
 	{
 		path: '/fromTable',
 		component: fromTable,
@@ -29,7 +29,7 @@ export default [
 		]
 	},
 	{
-		path: "/listView",
+		path: "/",
 		component: listView,
 		children: [
 			{ path: '/', name: 'li1', component: li1 },

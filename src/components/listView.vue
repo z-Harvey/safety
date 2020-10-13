@@ -53,9 +53,34 @@
 
 <script>
 // import li1 from './view/li1'
+import { getConfig } from '../api/getApi'
 
 export default {
   name: 'listView',
+  mounted () {
+    getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
+      console.log(res)
+      let { appId, timestamp, nonceStr, signature } = res.data.ret
+      this.$wx.config({
+        beta: true,
+        debug: false,
+        appId,
+        timestamp,
+        nonceStr,
+        signature,
+        jsApiList: ['chooseImage'],
+        success: res => {
+          console.log(res)
+        }
+      })
+      this.$wx.ready(res => {
+        console.log(res)
+      })
+      this.$wx.error(res => {
+        console.log(res)
+      })
+    })
+  },
   methods: {
     path(str) {
       this.$router.push({
