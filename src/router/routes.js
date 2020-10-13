@@ -8,6 +8,8 @@ import from1 from '../components/view/from1'
 import from2 from '../components/view/from2'
 import from3 from '../components/view/from3'
 
+import BusService from '../components/BusService'
+
 import introduce from '../components/static/introduce'
 import introduce2 from '../components/static/introduce2'
 
@@ -16,8 +18,9 @@ export default [
 	{ path: '/introduce', component: introduce },
 	{ path: '/introduce2', component: introduce2 },
 	{ path: '/fromView', component: fromView },
+	{ path: '/', component: BusService },
 	{
-		path: '/',
+		path: '/fromTable',
 		component: fromTable,
 		children: [
 			{ path: '/from1', name: 'from1', component: from1 },

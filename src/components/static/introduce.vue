@@ -1,3 +1,4 @@
+// 静态页面1
 <template>
   <div class="listView">
     <img class="tagF" src="@/assets/in_ts.png" alt="">

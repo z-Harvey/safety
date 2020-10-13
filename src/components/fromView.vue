@@ -1,3 +1,4 @@
+// 生殖险 | 试管婴儿
 <template>
     <div class="fromView">
         <div class="title">目标医院</div>
@@ -79,7 +80,8 @@
 
 <script>
 export default {
-    name: 'fromView'
+    name: 'fromView',
+    mounted () { document.title = '生殖险 | 试管婴儿' }
 }
 </script>
 

@@ -1,3 +1,4 @@
+// 静态页2
 <template>
   <div class="listView">
     <div class="box1">
