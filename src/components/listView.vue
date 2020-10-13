@@ -38,6 +38,9 @@
         </div>
         <div class="tag">2年内至少完成1次取卵3次移植失败即可赔付</div>
       </div>
+      <div>{{url}}</div>
+      <div>{{url1}}</div>
+      <div>{{url2}}</div>
       <div class="rig">
         <div class="l1">
           <img class="img1" src="@/assets/plcc.png" alt="">
@@ -52,12 +55,20 @@
 </template>
 
 <script>
-// import li1 from './view/li1'
 import { getConfig } from '../api/getApi'
 
 export default {
   name: 'listView',
+  data () {
+    return {
+      url: '',
+      url1: 'asdfasdfasdf',
+      url2: 'asdfasdfasdf'
+    }
+  },
   mounted () {
+    console.log(this.url2 = window.location.href)
+    this.url = window.location.href.split('?').split('&')[0].split('=')[1]
     getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
       console.log(res)
       let { appId, timestamp, nonceStr, signature } = res.data.ret
