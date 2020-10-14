@@ -21,57 +21,16 @@
                 <img src="@/assets/xj.png" alt="">
             </div>
         </div>
-        <div class="box box1">
+        <div class="box box1" v-for="(item, index) in hospitalList" :key="index">
             <img class="bg" src="@/assets/kp.png" alt="">
             <div class="textBox">
                 <div class="titles">
-                    中信湘雅生殖遗传专科医院
+                    <span v-text="item.name"></span>
                     <div class="s"></div>
                 </div>
-                <div class="tag">中国试管婴儿Top1</div>
-                <div class="btnBox">
-                    <div class="btn">中国人保安心宝></div>
-                    <div class="btn">中国平安爱孕保></div>
-                </div>
-            </div>
-        </div>
-        <div class="box box1">
-            <img class="bg" src="@/assets/kp.png" alt="">
-            <div class="textBox">
-                <div class="titles">
-                    湖南省妇幼保健医院
-                    <div class="s"></div>
-                </div>
-                <div class="tag">三甲医院生殖中心</div>
-                <div class="btnBox btnBox1">
-                    <div class="btn">中国人保安心宝></div>
-                </div>
-            </div>
-        </div>
-        <div class="box box1">
-            <img class="bg" src="@/assets/kp.png" alt="">
-            <div class="textBox">
-                <div class="titles">
-                    怀化市第一人民医院
-                    <div class="s"></div>
-                </div>
-                <div class="tag">安心保障成功受孕服务</div>
-                <div class="btnBox">
-                    <div class="btn">中国人保安心宝></div>
-                    <div class="btn">中国平安爱孕保></div>
-                </div>
-            </div>
-        </div>
-        <div class="box box1">
-            <img class="bg" src="@/assets/kp.png" alt="">
-            <div class="textBox">
-                <div class="titles">
-                    湘潭市中心医院
-                    <div class="s"></div>
-                </div>
-                <div class="tag">三甲医院生殖中心</div>
-                <div class="btnBox btnBox1">
-                    <div class="btn">中国人保安心宝></div>
+                <div class="tag" v-text="item.title"></div>
+                <div :class="item.products.length > 1? 'btnBox': 'btnBox btnBox1'">
+                    <div class="btn" v-for="(ite, ind) in item.products" :key="ind" v-text="ite.name + '>'" @click="path(item, ite)"></div>
                 </div>
             </div>
         </div>
@@ -79,9 +38,74 @@
 </template>
 
 <script>
+import { login, getListByCon } from '../api/getApi'
+
 export default {
     name: 'fromView',
-    mounted () { document.title = '生殖险 | 试管婴儿' }
+    data () {
+        return {
+            userInfo: {},
+            hospitalList: []
+        }
+    },
+    mounted () {
+        document.title = '生殖险 | 试管婴儿'
+        // let arr = window.location.href.split('?')[1].split('&')
+        // let obj = {}
+        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+        // login({ code: obj.code }).then(res => {
+        //     console.log(res)
+        //     localStorage.userInfo = JSON.stringify(res.data.ret)
+        //     this.userInfo = res.data.ret
+        //     this.init()
+        // })
+
+        this.userInfo = JSON.parse(localStorage.userInfo)
+        this.init()
+
+        // getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
+        //     console.log(res)
+        //     let { appId, timestamp, nonceStr, signature } = res.data.ret
+        //     this.$wx.config({
+        //         beta: true,
+        //         debug: false,
+        //         appId,
+        //         timestamp,
+        //         nonceStr,
+        //         signature,
+        //         jsApiList: ['chooseImage'],
+        //         success: res => {
+        //             console.log(res)
+        //         }
+        //     })
+        //     this.$wx.ready(res => {
+        //         console.log(res)
+        //     })
+        //     this.$wx.error(res => {
+        //         console.log(res)
+        //     })
+        // })
+    },
+    methods: {
+        init () {
+            let obj = {
+                token: this.userInfo.token,
+                province: '湖南'
+            }
+            getListByCon(obj).then(res => {
+                console.log(res)
+                this.hospitalList = res.data.ret.data
+            })
+        },
+        path (item, ite) {
+            this.$router.push({
+                path: '/listView',
+                query: {
+                    id: item.id
+                }
+            })
+        }
+    }
 }
 </script>
 

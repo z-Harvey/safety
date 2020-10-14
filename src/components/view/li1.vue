@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="btn">投保审核</div>
+    <div class="btn" @click="path()">投保审核</div>
     <img class="ph" src="@/assets/gdzx.png" alt="">
   </div>
 </template>
@@ -97,6 +97,11 @@ export default {
   name: 'listView',
   props: {
     msg: String
+  },
+  methods: {
+    path () {
+      this.$router.push({ path: '/fromTable' })
+    }
   }
 }
 </script>

@@ -6,7 +6,7 @@
       <img class="box1Img" src="@/assets/box1_bg.png" alt="">
       <div class="lef">
         <div class="title">
-          安心保
+          <span v-text="msgData.name"></span>
           <div class="s"></div>
         </div>
         <div class="li1">
@@ -38,9 +38,6 @@
         </div>
         <div class="tag">2年内至少完成1次取卵3次移植失败即可赔付</div>
       </div>
-      <div>{{url}}</div>
-      <div>{{url1}}</div>
-      <div>{{url2}}</div>
       <div class="rig">
         <div class="l1">
           <img class="img1" src="@/assets/plcc.png" alt="">
@@ -55,52 +52,39 @@
 </template>
 
 <script>
-import { getConfig } from '../api/getApi'
+import { getConfig, getById } from '../api/getApi'
 
 export default {
   name: 'listView',
   data () {
     return {
-      url: '',
-      url1: 'asdfasdfasdf',
-      url2: 'asdfasdfasdf'
+      id: '',
+      userInfo: {},
+      msgData: {},
+      fromData: {
+        
+      }
     }
   },
-  mounted () {
-    let arr = window.location.href.split('?')[1].split('&')
-    let obj = {}
-    arr.map(p1 => {
-      obj[p1.split('=')[0]] = p1.split('=')[1]
-    })
-    this.url = obj.code
-    console.log(obj)
-    getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
-      console.log(res)
-      let { appId, timestamp, nonceStr, signature } = res.data.ret
-      this.$wx.config({
-        beta: true,
-        debug: false,
-        appId,
-        timestamp,
-        nonceStr,
-        signature,
-        jsApiList: ['chooseImage'],
-        success: res => {
-          console.log(res)
-        }
-      })
-      this.$wx.ready(res => {
-        console.log(res)
-      })
-      this.$wx.error(res => {
-        console.log(res)
-      })
-    })
+  created () {
+    this.userInfo = JSON.parse(localStorage.userInfo)
+    this.id = this.$route.query.id
+    this.init()
   },
   methods: {
     path(str) {
       this.$router.push({
         path: str
+      })
+    },
+    init () {
+      let obj = {
+        token: this.userInfo.token,
+        id: this.id
+      }
+      getById(obj).then(res => {
+        console.log(res)
+        this.msgData = res.data.ret
       })
     }
   }

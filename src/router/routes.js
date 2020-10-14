@@ -17,8 +17,9 @@ import introduce2 from '../components/static/introduce2'
 export default [
 	{ path: '/introduce', component: introduce },
 	{ path: '/introduce2', component: introduce2 },
-	{ path: '/fromView', component: fromView },
 	{ path: '/BusService', component: BusService },
+
+	{ path: '/', component: fromView },
 	{
 		path: '/fromTable',
 		component: fromTable,
@@ -29,7 +30,7 @@ export default [
 		]
 	},
 	{
-		path: "/",
+		path: "/listView",
 		component: listView,
 		children: [
 			{ path: '/', name: 'li1', component: li1 },

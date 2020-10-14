@@ -2,35 +2,49 @@
     <div class="from1">
         <div class="lefDD">
             <div class="y q"></div>
-            <div class="g"></div>
+            <div :class="fromData.is_self_insure == 1? 'g g1': 'g'"></div>
             <div class="y"></div>
             <div class="g sg"></div>
             <div class="y"></div>
         </div>
         <div class="rig">
             <div class="from1">
-                <img class="bg" src="@/assets/from1_kp.png" alt="">
+                <img :class="fromData.is_self_insure == 1? 'bga': 'bg'" src="@/assets/from1_kp.png" alt="">
                 <div class="textBox">
                     <div class="tit">填写基本信息</div>
                     <div class="li">
                         <div class="title">投保人：</div>
-                        <input type="text">
+                        <input type="text" v-model="fromData.insure_name">
                     </div>
                     <div class="li">
                         <div class="title">证件号码：</div>
-                        <input type="text">
+                        <input type="text" v-model="fromData.insure_card">
                     </div>
                     <div class="li">
                         <div class="title">是否为本人投保：</div>
-                        <div class="rodi r" @click="radio = 1">
-                            <img v-if="radio == 1" src="@/assets/from_xz.png" alt="">
+                        <div class="rodi r" @click="fromData.is_self_insure = 0">
+                            <img v-if="fromData.is_self_insure == 0" src="@/assets/from_xz.png" alt="">
                             <img v-else src="@/assets/from_wxz.png" alt="">
                             <span>是</span>
                         </div>
-                        <div class="rodi" @click="radio = 2">
-                            <img v-if="radio == 2" src="@/assets/from_xz.png" alt="">
+                        <div class="rodi" @click="fromData.is_self_insure = 1">
+                            <img v-if="fromData.is_self_insure == 1" src="@/assets/from_xz.png" alt="">
                             <img v-else src="@/assets/from_wxz.png" alt="">
                             <span>否</span>
+                        </div>
+                    </div>
+                    <div v-if="fromData.is_self_insure == 1" style="padding-left: 5%;">
+                        <div class="li">
+                            <div class="title">被投保人：</div>
+                            <input type="text" v-model="fromData.give_insure_name">
+                        </div>
+                        <div class="li">
+                            <div class="title">身份证号码：</div>
+                            <input type="text" v-model="fromData.give_insure_card">
+                        </div>
+                        <div class="li">
+                            <div class="title">手机号码：</div>
+                            <input type="text" v-model="fromData.give_insure_phonenum">
                         </div>
                     </div>
                 </div>
@@ -38,7 +52,7 @@
             <div class="from2">上传病例资料</div>
             <div class="from2">等待审核结果</div>
         </div>
-        <div class="btn">下一步</div>
+        <div class="btn" @click="go">下一步</div>
         <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
     </div>
 </template>
@@ -48,7 +62,28 @@ export default {
     name: 'from1',
     data () {
         return {
-            radio: 1
+            fromData: {
+                is_self_insure: 0,
+                insure_name: '', // 投保人姓名
+                insure_card: '', // 投保人身份证号码
+                insure_phonenum: '16601164565', // 投保人手机号
+                give_insure_name: '', // 被保人名称
+                give_insure_card: '', // 被保人身份证号
+                give_insure_phonenum: '' // 被保人手机号
+            }
+        }
+    },
+    methods: {
+        go() {
+            if (this.fromData.insure_name === '') return alert('请填写投保人姓名')
+            if (this.fromData.insure_card === '') return alert('请填写投保人身份证号码')
+            if (this.fromData.is_self_insure === 1) {
+                if (this.fromData.give_insure_name === '') return alert('请填写被投保人姓名')
+                if (this.fromData.give_insure_card === '') return alert('请填写被保人身份证号')
+                if (this.fromData.give_insure_phonenum === '') return alert('请填写被保人手机号')
+            }
+            this.$parent.fromData = this.fromData
+            this.$router.push({ path: '/from2' })
         }
     }
 }
@@ -78,6 +113,7 @@ export default {
             border-radius: 20px;
             margin: 20px auto;
         }
+        .g1{ height: 420px; }
         .sg{ height: 69px; }
     }
     .rig{
@@ -88,6 +124,7 @@ export default {
             position: relative;
             margin-bottom: 24px;
             .bg{ width: 718px; height: 369px; }
+            .bga{ width: 718px; height: 580px; }
             .textBox{
                 position: absolute;
                 width: calc(100% - 100px);
@@ -108,7 +145,7 @@ export default {
                 .li{
                     margin-bottom: 23px;
                     .title{
-                        min-width: 160px;
+                        min-width: 180px;
                         height: 42px;
                         font-size: 30px;
                         font-family: 苹方-简;
