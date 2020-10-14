@@ -67,8 +67,13 @@ export default {
     }
   },
   mounted () {
-    console.log(this.url2 = window.location.href)
-    this.url = window.location.href.split('?').split('&')[0].split('=')[1]
+    let arr = window.location.href.split('?')[1].split('&')
+    let obj = {}
+    arr.map(p1 => {
+      obj[p1.split('=')[0]] = p1.split('=')[1]
+    })
+    this.url = obj.code
+    console.log(obj)
     getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
       console.log(res)
       let { appId, timestamp, nonceStr, signature } = res.data.ret

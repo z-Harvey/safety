@@ -23,7 +23,7 @@ export default [
 		path: '/fromTable',
 		component: fromTable,
 		children: [
-			{ path: '/from1', name: 'from1', component: from1 },
+			{ path: '/', name: 'from1', component: from1 },
 			{ path: '/from2', name: 'from2', component: from2 },
 			{ path: '/from3', name: 'from3', component: from3 }
 		]

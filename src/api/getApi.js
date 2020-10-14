@@ -4,7 +4,7 @@ import { PATH, axios } from './index'
  * 上传图片
  */
 // export function upFileds (data) { return axios.post( `http://upload-z2.qiniup.com`, data, { headers: { 'Content-Type': 'multipart/form-data' } } ) }
-export function upFileds (data) { return axios.post( `https://up.qiniup.com`, data, { headers: { 'Content-Type': 'multipart/form-data' } } ) }
+export function upFileds (data) { return axios.post( `http://upload-z2.qiniup.com`, data, { headers: { 'Content-Type': 'multipart/form-data' } } ) }
 
 /**
  * 获取token

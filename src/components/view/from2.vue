@@ -145,14 +145,29 @@ export default {
     },
     methods: {
         upFile(name, e) {
-            console.log(name)
-            console.log(e)
-            let param = new FormData()
-            param.append('token', this.token)
-            param.append('file', e.target.files[0])
-            upFileds(param).then(res => {
-                console.log(res)
+            // let size = e.target.files[0].size / 1024
+            this.compressImg(e.target.files[0]).then(res => {
+                let param = new FormData()
+                param.append('token', this.token)
+                param.append('file', res)
+                upFileds(param).then(res => {
+                    console.log(res)
+                })
             })
+            
+        },
+        time(time) {
+            let month = time.getMonth() + 1;  // 月
+            let date = time.getDate();  // 日
+            let hh = time.getHours();  // 时
+            let mm = time.getMinutes();  // 分
+            let ss = time.getSeconds();  // 秒
+            if (hh >=0 && hh<10){hh= '0' + hh;}
+            if (mm >=0 && mm<10){mm= '0' + mm;}
+            if (ss >=0 && ss<10){ss= '0' + ss;}
+            if (month < 10){month= '0' + month;}
+            if (date < 10){date= '0' + date;}
+            return time.getFullYear().toString() + month.toString() + date.toString() + hh.toString() + mm.toString() + ss.toString();
         }
     }
 }
