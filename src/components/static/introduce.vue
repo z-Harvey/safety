@@ -71,7 +71,7 @@
             <img @click="imgCli(2)" v-else src="@/assets/in_img1_0.png" alt="">
         </div>
     </div>
-    <div class="btn" @click="subMit">提交</div>
+    <div class="btn" @click="subMit">立即投保</div>
   </div>
 </template>
 

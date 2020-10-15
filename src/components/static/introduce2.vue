@@ -23,7 +23,7 @@
         </div>
         <div class="tagss">为了避免引起理赔纠纷，请您务必在保险期间内，完成任意<br/>一次移植手术后42天之内的妊娠成功与否的检查.</div>
     </div>
-    <div class="btn" @click="subMit">提交</div>
+    <div class="btn" @click="subMit">立即投保</div>
   </div>
 </template>
 
