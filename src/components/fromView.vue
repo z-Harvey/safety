@@ -1,7 +1,8 @@
 // 生殖险 | 试管婴儿
 <template>
     <div class="fromView">
-        <div class="title">目标医院</div>
+        <div class="title" v-text="token">目标医院</div>
+        <div v-text="msg"></div>
         <div class="seleBox">
             <div class="li li1">
                 <span>省</span>
@@ -34,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <div v-text="msg2"></div>
     </div>
 </template>
 
@@ -45,23 +47,25 @@ export default {
     data () {
         return {
             userInfo: {},
-            hospitalList: []
+            hospitalList: [],
+            token: '',
         }
     },
     mounted () {
         document.title = '生殖险 | 试管婴儿'
-        // let arr = window.location.href.split('?')[1].split('&')
-        // let obj = {}
-        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-        // login({ code: obj.code }).then(res => {
-        //     console.log(res)
-        //     localStorage.userInfo = JSON.stringify(res.data.ret)
-        //     this.userInfo = res.data.ret
-        //     this.init()
-        // })
+        let arr = window.location.href.split('?')[1].split('&')
+        let obj = {}
+        arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+        this.msg = '开始请求'
+        login({ code: obj.code }).then(res => {
+            this.token = res.data.ret.token
+            localStorage.userInfo = JSON.stringify(res.data.ret)
+            this.userInfo = res.data.ret
+            this.init()
+        })
 
-        this.userInfo = JSON.parse(localStorage.userInfo)
-        this.init()
+        // this.userInfo = JSON.parse(localStorage.userInfo)
+        // this.init()
 
         // getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
         //     console.log(res)
@@ -88,13 +92,18 @@ export default {
     },
     methods: {
         init () {
+            console.log(this.userInfo)
             let obj = {
                 token: this.userInfo.token,
                 province: '湖南'
             }
+            this.msg2 = '开始请求'
             getListByCon(obj).then(res => {
-                console.log(res)
+                
                 this.hospitalList = res.data.ret.data
+            }, err => {
+                this.msg2 = '请求失败'
+                this.msg2 = json.stringify(err)
             })
         },
         path (item, ite) {

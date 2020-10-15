@@ -89,18 +89,108 @@
     </div>
     <div class="btn" @click="path()">投保审核</div>
     <img class="ph" src="@/assets/gdzx.png" alt="">
+    <div class="modFrom" v-if="isPhone" @click.stop="isPhone = false">
+      <div class="fromBox" @click.stop>
+        <div class="f_title">
+          <span>手机号验证</span>
+          <div class="g"></div>
+        </div>
+        <div class="in1">
+          <input type="number" v-model="phonenum" name="" id="" placeholder="请输入您的手机号码">
+          <img class="img" src="@/assets/f_i1.png" alt="">
+        </div>
+        <div class="inp2">
+          <div class="inp">
+            <input type="text" v-model="captcha" placeholder="请输入图形验证码">
+            <img class="img1" src="@/assets/f_i2.png" alt="">
+          </div>
+          <div class="img111" @click="getCap()">
+            <img :src="baseImg" alt="">
+          </div>
+        </div>
+        <div class="inp2">
+          <div class="inp">
+            <input type="text" v-model="code" placeholder="请输入短信验证码">
+            <img class="img2" src="@/assets/f_i3.png" alt="">
+          </div>
+          <div class="btn111" @click="getSe">发送验证码</div>
+        </div>
+        <div class="tag">请输入图形/短信验证码进行验证与绑定</div>
+        <div class="submits" @click="chePhone">提交</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { getCaptcha, getSend, checkPhonenum } from '../../api/getApi'
+
 export default {
   name: 'listView',
   props: {
     msg: String
   },
+  data () {
+    return {
+      phonenum: '', // 手机号码
+      captcha: '', // 图片验证码
+      key: '', // 图片验证码的key
+      code: '', // 验证码
+      userInfo: {},
+      baseImg: '',
+      isPhone: false
+    }
+  },
+  created () {
+    this.userInfo = JSON.parse(localStorage.userInfo)
+    this.getCap()
+  },
   methods: {
+    chePhone () {
+      let obj = {
+        token: this.userInfo.token,
+        phonenum: this.phonenum,
+        key: this.key,
+        captcha: this.captcha,
+        code: this.code
+      }
+      checkPhonenum(obj).then(res => {
+        console.log(res)
+        if (res.data.code !== 200) return alert(res.data.message)
+        this.$router.push(
+          {
+            path: '/fromTable',
+            query: {
+              phonenum: this.phonenum
+            }
+          }
+        )
+      })
+    },
     path () {
-      this.$router.push({ path: '/fromTable' })
+      this.isPhone = true
+      // this.$router.push({ path: '/fromTable' })
+    },
+    getCap () {
+      getCaptcha().then(res => {
+        console.log(res)
+        if (res.data.code !== 200) return alert('获取图形验证码失败')
+        this.baseImg = res.data.ret.img
+        this.key = res.data.ret.key
+      })
+    },
+    getSe () {
+      if (this.phonenum.length !== 11 || this.phonenum === '') return alert('请输入正确手机号码')
+      let obj = {
+        token: this.userInfo.token,
+        phonenum: this.phonenum
+      }
+      console.log(obj)
+      getSend(obj).then(res => {
+        console.log(res)
+        if (res.data.code == 200) return alert('已发送')
+        return alert(res.data.message)
+      })
     }
   }
 }
@@ -109,6 +199,155 @@ export default {
 <style lang="scss" scoped>
 .listView{
   padding-bottom: 50px;
+  .modFrom{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(143, 142, 142, 0.5);
+    .fromBox{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 750px;
+      height: 590px;
+      background: #FFFFFF;
+      border-radius: 40px 40px 0 0;
+      .f_title{
+        padding: 29px 0 0 0;
+        text-align: center;
+        height: 67px;
+        font-size: 48px;
+        font-family: 苹方-简;
+        font-weight: normal;
+        line-height: 67px;
+        color: #3E77E2;
+        .g{
+          margin-top: 3px;
+          width: 120px;
+          height: 6px;
+          background: #FBB207;
+          opacity: 1;
+          border-radius: 20px;
+          margin: 0 auto;
+        }
+      }
+      .in1{
+        margin: 36px auto;
+        width: 427px;
+        height: 59px;
+        background: #F5F5F5;
+        opacity: 1;
+        border-radius: 10px;
+        position: relative;
+        input{
+          width: 367px;
+          float: right;
+          height: 59px;
+          border: none;
+          background: rgba(0, 0, 0, 0);
+
+          font-size: 20px;
+          font-family: 苹方-简;
+          font-weight: normal;
+          line-height: 59px;
+        }
+        input:after{ border: none; }
+        .img{
+          width: 21px;
+          height: 28px;
+          position: absolute;
+          top: 15px;
+          left: 24px;
+        }
+      }
+      .inp2{
+        width: 427px;
+        margin: 30px auto 0;
+        .img111{
+          width: 145px;
+          height: 59px;
+          float: right;
+          img{
+            width: 145px;
+            height: 59px;
+          }
+        }
+        .btn111{
+          width: 145px;
+          height: 59px;
+          background: #3E77E2;
+          border-radius: 10px;
+          font-size: 24px;
+          font-family: 苹方-简;
+          font-weight: normal;
+          color: #FFFFFF;
+          line-height: 59px;
+          text-align: center;
+          letter-spacing: 0;
+          float: right;
+        }
+        .inp{
+          display: inline-block;
+          vertical-align: top;
+          width: 264px;
+          height: 59px;
+          background: #F5F5F5;
+          border-radius: 10px;
+          position: relative;
+          input{
+            width: 204px;
+            height: 59px;
+            background: rgba(0, 0, 0, 0);
+            border: none;
+            line-height: 59px;
+            float: right;
+            font-size: 20px;
+          }
+          input:after{ border: none; }
+          .img1{
+            position: absolute;
+            top: 15px;
+            left: 22px;
+            width: 23px;
+            height: 25px;
+          }
+          .img2{
+            position: absolute;
+            top: 19px;
+            left: 21px;
+            width: 25px;
+            height: 22px;
+          }
+        }
+      }
+      .tag{
+        text-align: center;
+        margin: 17px auto 36px;
+        height: 28px;
+        font-size: 20px;
+        font-family: 苹方-简;
+        font-weight: normal;
+        line-height: 28px;
+        color: #FBA87C;
+        opacity: 0.8;
+      }
+      .submits{
+        width: 427px;
+        height: 82px;
+        background: linear-gradient(180deg, #5289E7 0%, #2B65DE 100%);
+        box-shadow: 0px 3px 6px #449DFB;
+        border-radius: 20px;
+        font-size: 24px;
+        font-family: PingFangSC;
+        line-height: 82px;
+        color: #FEFEFE;
+        text-align: center;
+        margin: 0 auto;
+      }
+    }
+  }
   .box2{
     text-align: center;
     .li{ display: inline-block; vertical-align: top; }

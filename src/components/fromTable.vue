@@ -9,7 +9,9 @@
 <script>
 export default {
     name: 'fromTable',
-    mounted () { document.title = '投保基本信息' }
+    mounted () {
+        document.title = '投保基本信息'
+    }
 }
 </script>
 

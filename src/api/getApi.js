@@ -45,3 +45,22 @@ export function getToken (data) { return axios.post( `${PATH}/api/getQiniuToken`
  */
 export function getConfig (data) { return axios.post( `${PATH}/api/wechat/config`, data ) }
 
+/**
+ * 获取图形验证码接口
+ */
+export function getCaptcha (data) { return axios.post( `${PATH}/api/captcha`, data ) }
+
+
+/**
+ * 获取手机号验证码
+ */
+export function getSend (data) { return axios.post( `${PATH}/api/verify/send`, data ) }
+
+/**
+ * 校验手机号
+ */
+export function checkPhonenum (data) { return axios.post( `${PATH}/api/insureOrder/checkPhonenum`, data ) }
+
+
+
+

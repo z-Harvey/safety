@@ -107,7 +107,6 @@ export default {
       left: 0;
       padding: 70px 61px 0;
       .title{
-        width: 168px;
         height: 78px;
         font-size: 56px;
         font-family: 苹方-简;
