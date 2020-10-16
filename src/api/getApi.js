@@ -26,9 +26,14 @@ export function getById (data) {
 }
 
 /**
- * 申请投保
+ * 申请投保 上传第一表单
  */
 export function apply (data) { return axios.post( `${PATH}/api/insureOrder/apply`, data ) }
+
+/**
+ * 申请投保 上传第二表单
+ */
+export function uploadImg (data) { return axios.post( `${PATH}/api/insureOrder/upload`, data ) }
 
 /**
  * 上传图片
@@ -62,5 +67,13 @@ export function getSend (data) { return axios.post( `${PATH}/api/verify/send`, d
 export function checkPhonenum (data) { return axios.post( `${PATH}/api/insureOrder/checkPhonenum`, data ) }
 
 
+/**
+ * 获取城市区
+ */
+export function getAreaByHospital (data) {
+    let arr = []
+    for (let i in data) { arr.push(`${i}=${data[i]}`) }
+    return axios.get( `${PATH}/api/hospital/getAreaByHospital?${arr.join('&')}`, data )
+}
 
 

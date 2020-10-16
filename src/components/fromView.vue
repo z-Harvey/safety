@@ -1,24 +1,27 @@
 // 生殖险 | 试管婴儿
 <template>
     <div class="fromView">
-        <div class="title" v-text="token">目标医院</div>
-        <div v-text="msg"></div>
+        <div class="title">目标医院</div>
         <div class="seleBox">
             <div class="li li1">
                 <span>省</span>
-                <select name="" id="">
-                    <option>选项1</option>
+                <select v-model="province" @change="getCity(province)">
+                    <option v-for="(item, index) in s1List" :key="index" v-text="item.province"></option>
                 </select>
                 <img src="@/assets/xj.png" alt="">
             </div>
             <div class="li li2">
                 <span>市</span>
-                <select name="" id=""></select>
+                <select v-model="city" @change="getRegion(province, city)">
+                    <option v-for="(item, index) in s2List" :key="index" v-text="item.city"></option>
+                </select>
                 <img src="@/assets/xj.png" alt="">
             </div>
             <div class="li li3">
                 <span>区</span>
-                <select name="" id=""></select>
+                <select v-model="region">
+                    <option v-for="(item, index) in s3List" :key="index" v-text="item.region"></option>
+                </select>
                 <img src="@/assets/xj.png" alt="">
             </div>
         </div>
@@ -31,16 +34,15 @@
                 </div>
                 <div class="tag" v-text="item.title"></div>
                 <div :class="item.products.length > 1? 'btnBox': 'btnBox btnBox1'">
-                    <div class="btn" v-for="(ite, ind) in item.products" :key="ind" v-text="ite.name + '>'" @click="path(item, ite)"></div>
+                    <div class="btn" v-for="(ite, ind) in item.products" :key="ind" v-text="ite.name + '>'" @click="path(ite, ite)"></div>
                 </div>
             </div>
         </div>
-        <div v-text="msg2"></div>
     </div>
 </template>
 
 <script>
-import { login, getListByCon } from '../api/getApi'
+import { login, getListByCon, getAreaByHospital } from '../api/getApi'
 
 export default {
     name: 'fromView',
@@ -49,24 +51,29 @@ export default {
             userInfo: {},
             hospitalList: [],
             token: '',
+            s1List: [],
+            s2List: [],
+            s3List: [],
+
+            province: '',
+            city: '',
+            region: ''
         }
     },
     mounted () {
         document.title = '生殖险 | 试管婴儿'
-        let arr = window.location.href.split('?')[1].split('&')
-        let obj = {}
-        arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-        this.msg = '开始请求'
-        login({ code: obj.code }).then(res => {
-            this.token = res.data.ret.token
-            localStorage.userInfo = JSON.stringify(res.data.ret)
-            this.userInfo = res.data.ret
-            this.init()
-        })
+        // let arr = window.location.href.split('?')[1].split('&')
+        // let obj = {}
+        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+        // login({ code: obj.code }).then(res => {
+        //     this.token = obj.code
+        //     localStorage.userInfo = JSON.stringify(res.data.ret)
+        //     this.userInfo = res.data.ret
+        //     this.init()
+        // })
 
-        // this.userInfo = JSON.parse(localStorage.userInfo)
-        // this.init()
-
+        this.userInfo = JSON.parse(localStorage.userInfo)
+        this.getProvince()
         // getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
         //     console.log(res)
         //     let { appId, timestamp, nonceStr, signature } = res.data.ret
@@ -91,22 +98,55 @@ export default {
         // })
     },
     methods: {
-        init () {
-            console.log(this.userInfo)
-            let obj = {
+        getProvince () {
+            getAreaByHospital({
                 token: this.userInfo.token,
-                province: '湖南'
-            }
+                type: 0
+            }).then(res => {
+                console.log('res', res)
+                this.s1List = res.data.ret
+                this.province = res.data.ret[0].province
+                this.getCity(res.data.ret[0].province)
+            })
+        },
+        getCity (str) {
+            getAreaByHospital({
+                token: this.userInfo.token,
+                type: 1,
+                province: str
+            }).then(ges => {
+                this.s2List = ges.data.ret
+                if (ges.data.ret.length == 0) {
+                    return this.init({ token: this.userInfo.token, province: str })
+                }
+                this.city = ges.data.ret[0].city
+                this.getRegion(str, ges.data.ret[0].city)
+            })
+        },
+        getRegion (str, str1) {
+            getAreaByHospital({
+                token: this.userInfo.token,
+                type: 2,
+                province: str,
+                city: str1
+            }).then(tes => {
+                if (tes.data.ret.length == 0) {
+                    return this.init({ token: this.userInfo.token, province: str, city: str1 })
+                }
+                this.region = tes.data.ret[0].region
+                this.s3List = tes.data.ret
+                this.init({ token: this.userInfo.token, province: str, city: str1 })
+            })
+        },
+        init (obj) {
+            console.log(this.userInfo)
             this.msg2 = '开始请求'
             getListByCon(obj).then(res => {
                 
                 this.hospitalList = res.data.ret.data
-            }, err => {
-                this.msg2 = '请求失败'
-                this.msg2 = json.stringify(err)
             })
         },
-        path (item, ite) {
+        path (item) {
             this.$router.push({
                 path: '/listView',
                 query: {

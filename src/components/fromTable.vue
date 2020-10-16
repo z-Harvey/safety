@@ -9,6 +9,13 @@
 <script>
 export default {
     name: 'fromTable',
+    data () {
+        return {
+            fromData: {},
+            from1Data: {},
+            id: ''
+        }
+    },
     mounted () {
         document.title = '投保基本信息'
     }

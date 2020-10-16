@@ -22,91 +22,14 @@
                 <img class="bg" src="@/assets/from2_kp1.png" alt="">
                 <div class="textBox">
                     <div class="title">上传病例资料</div>
-                    <div class="li">
-                        <span>AMH（ng/ml）：</span>
-                        <div class="imgBox" v-if="imgData.AMH !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="" @click="showImg = imgData.AMH">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.AMH = ''">
+                    <div class="li" v-for="(item, index) in callList" :key="index">
+                        <span v-text="item.label + '：'"></span>
+                        <div class="imgBox" v-if="item.indexPic !== ''">
+                            <img class="img" src="@/assets/from2_img.png" alt="" @click="showImg = item.indexPic">
+                            <img class="del" src="@/assets/from2_del.png" alt="" @click="item.indexPic = ''">
                         </div>
                         <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('AMH', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>FSH（mIU/mL）：</span>
-                        <div class="imgBox" v-if="imgData.FSH !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.FSH = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('FSH', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>AFC ：</span>
-                        <div class="imgBox" v-if="imgData.AFC !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.AFC = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('AFC', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>男方精液常规报告 ：</span>
-                        <div class="imgBox" v-if="imgData.MenSemenReport !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.MenSemenReport = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('MenSemenReport', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>男方染色体报告 ：</span>
-                        <div class="imgBox" v-if="imgData.menChromosomeReport !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.menChromosomeReport = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('menChromosomeReport', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>女方染色体报告：</span>
-                        <div class="imgBox" v-if="imgData.WomenChromosomeReport !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.WomenChromosomeReport = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('WomenChromosomeReport', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>被投保人身份证（正面）：</span>
-                        <div class="imgBox" v-if="imgData.IDCardFront !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.IDCardFront = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('IDCardFront', $event)">
-                            <img class="add" src="@/assets/from2_add.png" alt="">
-                        </div>
-                    </div>
-                    <div class="li">
-                        <span>被投保人身份证（反面）：</span>
-                        <div class="imgBox" v-if="imgData.IDCardBack !== ''">
-                            <img class="img" src="@/assets/from2_img.png" alt="">
-                            <img class="del" src="@/assets/from2_del.png" alt="" @click="imgData.IDCardBack = ''">
-                        </div>
-                        <div class="imgBox" v-else>
-                            <input type="file" @change="upFile('IDCardBack', $event)">
+                            <input type="file" @change="upFile(item, $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>
@@ -118,12 +41,15 @@
             <img :src="showImg" @click.stop="">
         </div>
         <div class="btn" @click="subMit">下一步</div>
-        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
+        <a class="gdzx" href="wtai://wp//mc;13764567708">
+            <img src="@/assets/from_gdzx.png" alt="">
+        </a>
+        <showToast ref="toast"/>
     </div>
 </template>
 
 <script>
-import { upFileds, getToken, apply } from '../../api/getApi'
+import { upFileds, getToken, apply, uploadImg } from '../../api/getApi'
 
 export default {
     name: 'from2',
@@ -141,32 +67,39 @@ export default {
                 WomenChromosomeReport: '',
                 IDCardFront: '',
                 IDCardBack: ''
-            }
+            },
+            callList: []
         }
     },
     created () {
         this.userInfo = JSON.parse(localStorage.userInfo)
+        this.callList = this.$parent.from1Data
         getToken({ token: '' }).then(res => { this.token = res.data.ret })
     },
     methods: {
         subMit () {
-            this.$parent.fromData['case_json'] = this.imgData
-            this.$parent.fromData['token'] = this.userInfo.token
-            apply(this.$parent.fromData).then(res => {
+            let arr = this.callList.filter(item => item.indexPic == '')
+            console.log(arr)
+            if (arr.length !== 0) return this.showToasts(`请上传   ${arr[0].label}`)
+            let obj = {
+                token: JSON.parse(localStorage.userInfo).token,
+                id: this.$parent.id,
+                upload_json: this.callList
+            }
+            uploadImg(obj).then(res => {
                 console.log(res)
                 if (res.data.code !== 200) return alert(res.data.message)
                 this.$router.replace({ path: '/from3' })
             })
         },
-        upFile(name, e) {
+        upFile (ite, e) {
             // let size = e.target.files[0].size / 1024
             this.compressImg(e.target.files[0]).then(res => {
                 let param = new FormData()
                 param.append('token', this.token)
                 param.append('file', res)
                 upFileds(param).then(res => {
-                    this.imgData[name] = `http://qi3c3efjn.hn-bkt.clouddn.com/${res.data.key}`
-                    console.log(name, this.imgData[name])
+                    ite.indexPic = `http://qi3c3efjn.hn-bkt.clouddn.com/${res.data.key}`
                 })
             })
             
@@ -183,6 +116,10 @@ export default {
             if (month < 10){month= '0' + month;}
             if (date < 10){date= '0' + date;}
             return time.getFullYear().toString() + month.toString() + date.toString() + hh.toString() + mm.toString() + ss.toString();
+        },
+        showToasts (str) {
+            this.$refs.toast.show({ title: str })
+            setTimeout(() => { this.$refs.toast.hide() }, 2000)
         }
     }
 }
@@ -363,6 +300,10 @@ export default {
         position: fixed;
         bottom: 174px;
         right: 53px;
+        img{
+            width: 91px;
+            height: 90px;
+        }
     }
 }
 </style>

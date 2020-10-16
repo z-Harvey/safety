@@ -19,19 +19,19 @@
         </div>
         <div class="li2">
           <div class="ul">
-            <div class="li li1s" @click="path('/')">
-              <div class="lit1">基本保></div>
-              <div class="lit2">高性价</div>
+            <div class="li li1s" v-if="msgData.content.length > 0" @click="ulCli(msgData.content[0])">
+              <div class="lit1" v-text="msgData.content[0].name + '>'"></div>
+              <div class="lit2" v-text="msgData.content[0].title"></div>
               <img src="@/assets/tb1.png" alt="">
             </div>
-            <div class="li li2s" @click="path('/li2')">
-              <div class="lit1">基本保></div>
-              <div class="lit2">高性价</div>
+            <div class="li li2s" v-if="msgData.content.length > 1" @click="ulCli(msgData.content[1])">
+              <div class="lit1" v-text="msgData.content[1].name + '>'"></div>
+              <div class="lit2" v-text="msgData.content[1].title"></div>
               <img src="@/assets/tb1.png" alt="">
             </div>
-            <div class="li li3s" @click="path('/')">
-              <div class="lit1">基本保></div>
-              <div class="lit2">高性价</div>
+            <div class="li li3s" v-if="msgData.content.length > 2" @click="ulCli(msgData.content[2])">
+              <div class="lit1" v-text="msgData.content[2].name + '>'"></div>
+              <div class="lit2" v-text="msgData.content[2].title"></div>
               <img src="@/assets/tb1.png" alt="">
             </div>
           </div>
@@ -47,12 +47,15 @@
         <div class="l2">本产品由中国人保承保与理赔</div>
       </div>
     </div>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
+    <li1 :msgData="cliData"/>
   </div>
 </template>
 
 <script>
-import { getConfig, getById } from '../api/getApi'
+import li1 from './view/li1'
+// import { getConfig, getById } from '../api/getApi'
+import { getById } from '../api/getApi'
 
 export default {
   name: 'listView',
@@ -60,18 +63,29 @@ export default {
     return {
       id: '',
       userInfo: {},
-      msgData: {},
-      fromData: {
-        
+      msgData: {
+        content: []
+      },
+      fromData: { },
+      cliData: {
+        title: '',
+        list: []
       }
     }
   },
+  components: { li1 },
   created () {
     this.userInfo = JSON.parse(localStorage.userInfo)
     this.id = this.$route.query.id
     this.init()
   },
   methods: {
+    ulCli (ite) {
+      this.cliData = {
+        title: `${this.msgData.name}-${ite.name}`,
+        list: ite
+      }
+    },
     path(str) {
       this.$router.push({
         path: str
@@ -85,6 +99,10 @@ export default {
       getById(obj).then(res => {
         console.log(res)
         this.msgData = res.data.ret
+        this.cliData = {
+          title: `${this.msgData.name}-${res.data.ret.content[0].name}`,
+          list: res.data.ret.content[0]
+        }
       })
     }
   }

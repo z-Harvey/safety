@@ -24,8 +24,10 @@
                 </div>
             </div>
         </div>
-        <div class="btn">下一步</div>
-        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
+        <!-- <div class="btn">下一步</div> -->
+        <a class="gdzx" href="wtai://wp//mc;13764567708">
+            <img src="@/assets/from_gdzx.png" alt="">
+        </a>
     </div>
 </template>
 
@@ -140,6 +142,10 @@ export default {
         position: fixed;
         bottom: 174px;
         right: 53px;
+        img{
+            width: 91px;
+            height: 90px;
+        }
     }
 }
 </style>

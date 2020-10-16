@@ -53,19 +53,24 @@
             <div class="from2">等待审核结果</div>
         </div>
         <div class="btn" @click="go">下一步</div>
-        <img class="gdzx" src="@/assets/from_gdzx.png" alt="">
+        <a class="gdzx" href="wtai://wp//mc;13764567708">
+            <img src="@/assets/from_gdzx.png" alt="">
+        </a>
+        <showToast ref="toast"/>
     </div>
 </template>
 
 <script>
+import { apply } from '../../api/getApi'
+
 export default {
     name: 'from1',
     data () {
         return {
             fromData: {
                 is_self_insure: 0,
-                insure_name: '', // 投保人姓名
-                insure_card: '', // 投保人身份证号码
+                insure_name: '美荣', // 投保人姓名
+                insure_card: '110101198705079024', // 投保人身份证号码
                 insure_phonenum: '', // 投保人手机号
                 give_insure_name: '', // 被保人名称
                 give_insure_card: '', // 被保人身份证号
@@ -86,7 +91,24 @@ export default {
                 if (this.fromData.give_insure_phonenum === '') return alert('请填写被保人手机号')
             }
             this.$parent.fromData = this.fromData
-            this.$router.push({ path: '/from2' })
+            let obj = JSON.parse(JSON.stringify(this.fromData))
+            obj['token'] = JSON.parse(localStorage.userInfo).token
+            apply(obj).then(res => {
+                console.log(res)
+                if (res.data.code !== 200) return this.showToasts(res.data.message)
+                res.data.ret.nullValueList.map(p1 => {
+                    p1['indexPic'] = ''
+                })
+                this.$parent.from1Data = res.data.ret.nullValueList
+                this.$parent.id = res.data.ret.id
+                this.$router.push({ path: '/from2' })
+                return
+            })
+            
+        },
+        showToasts (str) {
+            this.$refs.toast.show({ title: str })
+            setTimeout(() => { this.$refs.toast.hide() }, 2000)
         }
     }
 }
@@ -219,6 +241,10 @@ export default {
         position: fixed;
         bottom: 174px;
         right: 53px;
+        img{
+            width: 91px;
+            height: 90px;
+        }
     }
 }
 </style>

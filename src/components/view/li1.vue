@@ -64,31 +64,17 @@
     <div class="box5">
       <img class="bg" src="@/assets/jbbbj.png" alt="">
       <div class="textBox">
-        <div class="title">平安祝孕保-基本保</div>
-        <div class="ul">
-          <div class="li1">适用人群</div>
-          <div class="li2">中老年</div>
-        </div>
-        <div class="ul">
-          <div class="li1">保费</div>
-          <div class="li2">500元</div>
-        </div>
-        <div class="ul">
-          <div class="li1">保障额度</div>
-          <div class="li2">10000元</div>
-        </div>
-        <div class="ul">
-          <div class="li1">保险期间</div>
-          <div class="li2">2020/01/01-2021/01/01</div>
-        </div>
-        <div class="ul">
-          <div class="li1">指定生殖中心</div>
-          <div class="li2">中国第一人民医院</div>
+        <div class="title" v-text="msgData.title"></div>
+        <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
+          <div class="li1" v-text="item.name"></div>
+          <div class="li2" v-text="item.intro"></div>
         </div>
       </div>
     </div>
     <div class="btn" @click="path()">投保审核</div>
-    <img class="ph" src="@/assets/gdzx.png" alt="">
+    <a class="ph" href="wtai://wp//mc;13764567708">
+        <img src="@/assets/from_gdzx.png" alt="">
+    </a>
     <div class="modFrom" v-if="isPhone" @click.stop="isPhone = false">
       <div class="fromBox" @click.stop>
         <div class="f_title">
@@ -99,7 +85,7 @@
           <input type="number" v-model="phonenum" name="" id="" placeholder="请输入您的手机号码">
           <img class="img" src="@/assets/f_i1.png" alt="">
         </div>
-        <div class="inp2">
+        <!-- <div class="inp2">
           <div class="inp">
             <input type="text" v-model="captcha" placeholder="请输入图形验证码">
             <img class="img1" src="@/assets/f_i2.png" alt="">
@@ -107,18 +93,19 @@
           <div class="img111" @click="getCap()">
             <img :src="baseImg" alt="">
           </div>
-        </div>
+        </div> -->
         <div class="inp2">
           <div class="inp">
             <input type="text" v-model="code" placeholder="请输入短信验证码">
             <img class="img2" src="@/assets/f_i3.png" alt="">
           </div>
-          <div class="btn111" @click="getSe">发送验证码</div>
+          <div class="btn111" @click="getSe" v-text="codeText"></div>
         </div>
         <div class="tag">请输入图形/短信验证码进行验证与绑定</div>
         <div class="submits" @click="chePhone">提交</div>
       </div>
     </div>
+    <showToast ref="toast"/>
   </div>
 </template>
 
@@ -127,11 +114,10 @@ import { getCaptcha, getSend, checkPhonenum } from '../../api/getApi'
 
 export default {
   name: 'listView',
-  props: {
-    msg: String
-  },
+  props: [ 'msgData' ],
   data () {
     return {
+      codeText: '发送验证码',
       phonenum: '', // 手机号码
       captcha: '', // 图片验证码
       key: '', // 图片验证码的key
@@ -141,22 +127,30 @@ export default {
       isPhone: false
     }
   },
-  created () {
+  mounted () {
     this.userInfo = JSON.parse(localStorage.userInfo)
+    this.$refs.toast.show({ title: 'loading...' })
     this.getCap()
   },
   methods: {
     chePhone () {
+      // let obj = {
+      //   token: this.userInfo.token,
+      //   phonenum: this.phonenum,
+      //   key: this.key,
+      //   captcha: this.captcha,
+      //   code: this.code
+      // }
       let obj = {
         token: this.userInfo.token,
         phonenum: this.phonenum,
-        key: this.key,
-        captcha: this.captcha,
         code: this.code
       }
+      if (this.phonenum == '') return this.showToasts('请输入手机号码')
+      if (this.code == '') return this.showToasts('请输入验证码')
       checkPhonenum(obj).then(res => {
         console.log(res)
-        if (res.data.code !== 200) return alert(res.data.message)
+        if (res.data.code !== 200) return this.showToasts( res.data.message )
         this.$router.push(
           {
             path: '/fromTable',
@@ -168,28 +162,54 @@ export default {
       })
     },
     path () {
+      console.log(1)
       this.isPhone = true
+      // this.$refs.toast.show({ title: 'loading...' })
+      // setTimeout(() => { this.$refs.toast.hide() }, 2000)
       // this.$router.push({ path: '/fromTable' })
     },
     getCap () {
       getCaptcha().then(res => {
-        console.log(res)
-        if (res.data.code !== 200) return alert('获取图形验证码失败')
+        this.$refs.toast.hide()
+        if (res.data.code !== 200) return this.showToasts('获取图形验证码失败')
         this.baseImg = res.data.ret.img
         this.key = res.data.ret.key
       })
     },
+    showToasts (str) {
+      this.$refs.toast.show({ title: str })
+      setTimeout(() => { this.$refs.toast.hide() }, 2000)
+    },
     getSe () {
-      if (this.phonenum.length !== 11 || this.phonenum === '') return alert('请输入正确手机号码')
+      if (this.codeText !== '发送验证码') return
+      if (this.phonenum.length !== 11 || this.phonenum === '') {
+        this.showToasts( '请输入正确手机号码' )
+        setTimeout(() => {
+          this.$refs.toast.hide()
+        }, 2000)
+        return
+      }
+      this.codeText = '发送中...'
       let obj = {
         token: this.userInfo.token,
         phonenum: this.phonenum
       }
-      console.log(obj)
       getSend(obj).then(res => {
-        console.log(res)
-        if (res.data.code == 200) return alert('已发送')
-        return alert(res.data.message)
+        if (res.data.code == 200) {
+          let time = 60
+          let index = setInterval(() => {
+            this.codeText = `${time}S`
+            --time
+            if (time == 0) {
+              this.codeText = '发送验证码'
+              clearInterval(index)
+            }
+          }, 1000)
+          this.showToasts('已发送')
+          return
+        }
+        alert(res.data.message)
+        this.codeText = '发送验证码'
       })
     }
   }
@@ -557,14 +577,20 @@ export default {
     line-height: 93px;
     color: #FFFFFF;
     letter-spacing: 4px;
-    margin: -57px auto 0;
+    position: relative;
+    top: -57px;
+    left: calc(50% - 343px);
   }
-  .ph{
-    position: fixed;
-    right: 54px;
-    bottom: 171px;
-    width: 91px;
-    height: 91px;
-  }
+    .ph{
+        width: 91px;
+        height: 91px;
+        position: fixed;
+        bottom: 171px;
+        right: 54px;
+        img{
+            width: 91px;
+            height: 91px;
+        }
+    }
 }
 </style>
