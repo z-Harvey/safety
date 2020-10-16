@@ -19,17 +19,17 @@
         </div>
         <div class="li2">
           <div class="ul">
-            <div class="li li1s" v-if="msgData.content.length > 0" @click="ulCli(msgData.content[0])">
+            <div :class="act == 0? 'li act li1s': 'li li1s'" v-if="msgData.content.length > 0" @click="ulCli(msgData.content[0], 0)">
               <div class="lit1" v-text="msgData.content[0].name + '>'"></div>
               <div class="lit2" v-text="msgData.content[0].title"></div>
               <img src="@/assets/tb1.png" alt="">
             </div>
-            <div class="li li2s" v-if="msgData.content.length > 1" @click="ulCli(msgData.content[1])">
+            <div :class="act == 1? 'li act li2s': 'li li2s'" v-if="msgData.content.length > 1" @click="ulCli(msgData.content[1], 1)">
               <div class="lit1" v-text="msgData.content[1].name + '>'"></div>
               <div class="lit2" v-text="msgData.content[1].title"></div>
               <img src="@/assets/tb1.png" alt="">
             </div>
-            <div class="li li3s" v-if="msgData.content.length > 2" @click="ulCli(msgData.content[2])">
+            <div :class="act == 2? 'li act li3s': 'li li3s'" v-if="msgData.content.length > 2" @click="ulCli(msgData.content[2], 2)">
               <div class="lit1" v-text="msgData.content[2].name + '>'"></div>
               <div class="lit2" v-text="msgData.content[2].title"></div>
               <img src="@/assets/tb1.png" alt="">
@@ -61,6 +61,7 @@ export default {
   name: 'listView',
   data () {
     return {
+      act: 0,
       id: '',
       userInfo: {},
       msgData: {
@@ -80,7 +81,8 @@ export default {
     this.init()
   },
   methods: {
-    ulCli (ite) {
+    ulCli (ite, n) {
+      this.act = n
       this.cliData = {
         title: `${this.msgData.name}-${ite.name}`,
         list: ite
@@ -116,8 +118,9 @@ export default {
   .box1{
     position: relative;
     .box1Img{
-      width: 750px;
-      height: 497px;
+      margin: 30px 17px 0;
+      width: 716px;
+      height: 477px;
     }
     .lef{
       position: absolute;
@@ -196,6 +199,9 @@ export default {
               height: 53px;
             }
           }
+          .act{
+            box-shadow: 0 0 25px rgba(0, 0, 0, .5);
+          }
         }
       }
       .tag{
@@ -215,8 +221,8 @@ export default {
     }
     .rig{
       position: absolute;
-      top: 38px;
-      right: 30.5px;
+      top: 58px;
+      right: -22px;
       transform: scale(.5);
       .l1{
         .img1{

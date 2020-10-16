@@ -178,9 +178,9 @@ export default {
         padding: 17px 13px;
         display: flex;
         justify-content: space-between;
-        .li1{select{ width: 128px; }}
-        .li2{select{ width: 102px; }}
-        .li3{select{ width: 102px; }}
+        .li1{select{ width: 200px; }}
+        .li2{select{ width: 132px; }}
+        .li3{select{ width: 132px; }}
         .li{
             height: 43px;
             display: inline-block;
@@ -224,8 +224,9 @@ export default {
         margin-top: -23px;
         position: relative;
         .bg{
-            width: 750px;
-            height: 347px;
+            width: 715px;
+            height: 332px;
+            margin: 15px 17px 0;
         }
         .textBox{
             position: absolute;

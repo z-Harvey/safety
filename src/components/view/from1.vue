@@ -148,8 +148,8 @@ export default {
         .from1{
             position: relative;
             margin-bottom: 24px;
-            .bg{ width: 718px; height: 369px; }
-            .bga{ width: 718px; height: 580px; }
+            .bg{ width: 658px; height: 369px; margin-left: 50px;}
+            .bga{ width: 658px; height: 580px; margin-left: 50px; }
             .textBox{
                 position: absolute;
                 width: calc(100% - 100px);

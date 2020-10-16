@@ -101,7 +101,7 @@
           </div>
           <div class="btn111" @click="getSe" v-text="codeText"></div>
         </div>
-        <div class="tag">请输入图形/短信验证码进行验证与绑定</div>
+        <div class="tag">请输入 短信验证码 进行验证与绑定</div>
         <div class="submits" @click="chePhone">提交</div>
       </div>
     </div>
