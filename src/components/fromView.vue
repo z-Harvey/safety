@@ -62,18 +62,32 @@ export default {
     },
     mounted () {
         document.title = '生殖险 | 试管婴儿'
-        // let arr = window.location.href.split('?')[1].split('&')
-        // let obj = {}
-        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-        // login({ code: obj.code }).then(res => {
-        //     this.token = obj.code
-        //     localStorage.userInfo = JSON.stringify(res.data.ret)
-        //     this.userInfo = res.data.ret
-        //     this.init()
-        // })
+
 
         this.userInfo = JSON.parse(localStorage.userInfo)
         this.getProvince()
+
+        // let arr = window.location.href.split('?')[1].split('&')
+        // let obj = {}
+        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+
+        // this.token = obj.code
+
+        // login({ code: obj.code }).then(res => {
+        //     if (res.data.message == '微信授权失败') {
+        //         this.userInfo = JSON.parse(localStorage.userInfo)
+        //         this.token = this.userInfo.token
+        //         this.getProvince()
+        //         return
+        //     }
+        //     this.token = res.data.ret.token
+        //     localStorage.userInfo = JSON.stringify(res.data.ret)
+        //     this.userInfo = res.data.ret
+        //     this.getProvince()
+        // })
+
+        // this.userInfo = JSON.parse(localStorage.userInfo)
+        // this.getProvince()
         // getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
         //     console.log(res)
         //     let { appId, timestamp, nonceStr, signature } = res.data.ret

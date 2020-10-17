@@ -13,13 +13,19 @@ import BusService from '../components/BusService'
 import introduce from '../components/static/introduce'
 import introduce2 from '../components/static/introduce2'
 
+import poliInfo from '../components/policyInquiry/info'
+import poliList from '../components/policyInquiry/list'
+
 //配置路由，path就是你浏览器地址，component就是跟着你要显示的页面，/表示默认地址。
 export default [
-	{ path: '/introduce', component: introduce },
-	{ path: '/introduce2', component: introduce2 },
-	{ path: '/BusService', component: BusService },
+	{ path: '/introduce', component: introduce }, // 静态页一
+	{ path: '/introduce2', component: introduce2 }, // 静态页二
+	{ path: '/BusService', component: BusService }, // 商务服务
 
-	{ path: '/', component: fromView },
+	{ path: '/', component: poliList }, // 保单查询列表
+	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
+
+	{ path: '/fromView', component: fromView }, // 主页
 	{
 		path: '/fromTable',
 		component: fromTable,

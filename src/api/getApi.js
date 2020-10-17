@@ -75,5 +75,13 @@ export function getAreaByHospital (data) {
     for (let i in data) { arr.push(`${i}=${data[i]}`) }
     return axios.get( `${PATH}/api/hospital/getAreaByHospital?${arr.join('&')}`, data )
 }
+/**
+ * 获取投保列表
+ */
+export function getInsureOrderListByCon (data) {
+    let arr = []
+    for (let i in data) { arr.push(`${i}=${data[i]}`) }
+    return axios.get( `${PATH}/api/insureOrder/getListByCon?${arr.join('&')}`, data )
+}
 
 
