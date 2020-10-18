@@ -84,4 +84,13 @@ export function getInsureOrderListByCon (data) {
     return axios.get( `${PATH}/api/insureOrder/getListByCon?${arr.join('&')}`, data )
 }
 
+/**
+ * 获取投保详情
+ */
+export function getInsureOrderById (data) {
+    let arr = []
+    for (let i in data) { arr.push(`${i}=${data[i]}`) }
+    return axios.get( `${PATH}/api/insureOrder/getById?${arr.join('&')}`, data )
+}
+
 

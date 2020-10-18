@@ -15,6 +15,7 @@ import introduce2 from '../components/static/introduce2'
 
 import poliInfo from '../components/policyInquiry/info'
 import poliList from '../components/policyInquiry/list'
+import polialready from '../components/policyInquiry/already'
 
 //配置路由，path就是你浏览器地址，component就是跟着你要显示的页面，/表示默认地址。
 export default [
@@ -24,6 +25,7 @@ export default [
 
 	{ path: '/', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
+	{ path: '/polialready', component: polialready }, // 保单查询详情
 
 	{ path: '/fromView', component: fromView }, // 主页
 	{

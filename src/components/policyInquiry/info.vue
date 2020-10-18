@@ -3,35 +3,35 @@
         <div class="textBox">
             <img class="bg" src="@/assets/info_bg.png" alt="">
             <div class="text">
-                <div class="title a">审核未通过</div>
-                <!-- <div class="title a">审核中</div>
-                <div class="title b">审核已通过</div> -->
+                <div class="title a" v-if="msg.pass_flag == 2">审核未通过</div>
+                <div class="title a" v-else-if="msg.pass_flag == 0">审核中</div>
+                <div class="title b" v-else-if="msg.pass_flag == 1">审核已通过</div>
                 <div class="y">
-                    <div class="li"><span class="lef">核保单号：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">核保提交时间：</span><span class="rig">RB010200911005</span></div>
+                    <div class="li">
+                        <span class="lef">核保单号：</span>
+                        <span class="rig" v-if="msg.is_self_insure == 0" v-text="msg.insure_card"></span>
+                        <span class="rig" v-else v-text="msg.give_insure_card"></span>
+                    </div>
+                    <div class="li"><span class="lef">核保提交时间：</span><span class="rig" v-text="msg.created_at"></span></div>
                 </div>
                 <div class="y">
-                    <div class="li"><span class="lef">投保人：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">证件号码：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">手机号码：</span><span class="rig">RB010200911005</span></div>
+                    <div class="li"><span class="lef">投保人：</span><span class="rig" v-text="msg.insure_name"></span></div>
+                    <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="'1111111111'"></span></div>
+                    <div class="li"><span class="lef">手机号码：</span><span class="rig" v-text="msg.insure_phonenum"></span></div>
                 </div>
                 <div class="y">
-                    <div class="li"><span class="lef">是否为本人投保：</span><span class="rig">RB010200911005</span></div>
+                    <div class="li"><span class="lef">是否为本人投保：</span><span class="rig" v-text="msg.is_self_insure == 0? '是': '否'"></span></div>
+                </div>
+                <div class="y" v-if="msg.is_self_insure == 1">
+                    <div class="li"><span class="lef">被投保人：</span><span class="rig" v-text="msg.give_insure_name"></span></div>
+                    <!-- <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="msg"></span></div> -->
+                    <div class="li"><span class="lef">手机号码：</span><span class="rig" v-text="msg.give_insure_phonenum"></span></div>
                 </div>
                 <div class="y">
-                    <div class="li"><span class="lef">被投保人：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">证件号码：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">手机号码：</span><span class="rig">RB010200911005</span></div>
-                </div>
-                <div class="y">
-                    <div class="li"><span class="lef">AMH(ng/ml）：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">FSH（mlU/ml）：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">AFC：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">男方精液常规报告：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">男方染色体报告：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">女方染色体报告：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">被投保人身份证（正面）：</span><span class="rig">RB010200911005</span></div>
-                    <div class="li"><span class="lef">被投保人身份证（正面）：</span><span class="rig">RB010200911005</span></div>
+                    <div class="li" v-for="(ite, ind) in msg.upload_json.nullValueList" :key="ind">
+                        <span class="lef" v-text="ite.label + '：'"></span>
+                        <span class="rig">RB010200911005</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,8 +39,25 @@
 </template>
 
 <script>
+import { getInsureOrderById } from '../../api/getApi'
+
 export default {
-    name: 'info'
+    name: 'info',
+    data () {
+        return {
+            userInfo: {},
+            id: '',
+            msg: {}
+        }
+    },
+    mounted () {
+        this.userInfo = JSON.parse(localStorage.userInfo)
+        this.id = this.$route.query.id
+        getInsureOrderById({ token: this.userInfo.token, id: this.id }).then(res => {
+            console.log(res)
+            this.msg = res.data.ret
+        })
+    }
 }
 </script>
 

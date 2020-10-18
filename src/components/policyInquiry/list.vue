@@ -11,15 +11,25 @@
             <div class="li" v-for="(item, index) in forList" :key="index" @click="path(item)">
                 <div class="lef">
                     <div class="title">保单名称：人保试管婴儿险 基本保</div>
-                    <div class="li1">
-                        <span>被投保人：何小荷</span>
-                        <span>投保人：何小荷</span>
+
+                    <div v-if="item.is_self_insure == 0">
+                        <div class="li1">
+                            <span v-text="'投保人：' + item.insure_name"></span>
+                        </div>
+                        <div class="li2" v-text="'核保单号：' + item.insure_card"></div>
                     </div>
-                    <div class="li2">核保单号：RB010200911005</div>
-                    <div class="li2">核保时间：2020/09/12  12：36</div>
+                    
+                    <div v-else>
+                        <div class="li1">
+                            <span v-text="'被投保人：' + item.give_insure_name"></span>
+                        </div>
+                        <div class="li2" v-text="'核保单号：' + item.give_insure_card"></div>
+                    </div>
+
+                    <div class="li2" v-text="'核保时间：' + item.created_at">2020/09/12  12：36</div>
                 </div>
-                <div class="tags">结果：通过</div>
-                <div class="tag">已核保</div>
+                <div class="tags" v-if="item.pass_flag == 1">结果：通过</div>
+                <div class="tag" v-text="item.pass_flag_str"></div> 
             </div>
         </div>
         <div v-else class="noList">暂无数据</div>
@@ -40,14 +50,19 @@ export default {
         }
     },
     watch: {
-        nav(ne, el) { this.init() }
+        nav(ne, el) {
+            if (ne == 2) return this.$router.push({ path: '/polialready' })
+            this.init()
+        }
     },
     mounted () {
         this.userInfo = JSON.parse(localStorage.userInfo)
         this.init()
     },
     methods: {
-        path() { this.$router.push({ path: '/poliInfo' }) },
+        path(item) {
+            this.$router.push({ path: '/poliInfo', query: { id: item.id } })
+        },
         init () {
             this.$refs.toast.show({ title: 'loading...' })
             getInsureOrderListByCon({
@@ -55,6 +70,7 @@ export default {
                 is_paginate: 0,
                 insure_order_status: this.nav
             }).then(res => {
+                console.log(res.data.ret)
                 this.$refs.toast.hide()
                 if (res.data.code !== 200) return alert(res.data.message)
                 this.forList = res.data.ret
