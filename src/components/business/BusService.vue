@@ -18,8 +18,8 @@
         </div>
         <div class="title">机构码验证进入</div>
         <div class="fromBox">
-            <input class="inp" type="text" placeholder="请输入所在机构码">
-            <img class="btn" src="@/assets/bus_button.png" alt="">
+            <input class="inp" type="text" v-model="code" placeholder="请输入所在机构码">
+            <img class="btn" @click="path" src="@/assets/bus_button.png" alt="">
         </div>
         <div class="tagBox">推荐码获取方式：1.联系我司区域业务顾问获取；2.联系本平台客服；<br/>（若上述途径无法解决，拨打合作专员电话13755667788）</div>
     </div>
@@ -28,7 +28,15 @@
 <script>
 export default {
     name: 'BusService',
-    mounted () { document.title = '商务服务' }
+    data () {
+        return {
+            code: ''
+        }
+    },
+    mounted () { document.title = '商务服务' },
+    methods: {
+        path () { if (this.code == 13579) this.$router.push({ path: '/busFrom1' }) }
+    }
 }
 </script>
 

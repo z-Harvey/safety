@@ -7,22 +7,22 @@
                 <div class="li">
                     <div class="title">中国人民保险集团有限公司</div>
                     <div class="liImg liImg1">
-                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序-长按识别进入</div></div>
-                        <div class="imgBox i2"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序-长按识别进入</div></div>
+                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序</div></div>
+                        <div class="imgBox i2"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序</div></div>
                         <div class="imgBox i3"><img src="@/assets/already_inter.png" alt=""><div class="tit">网址查询</div></div>
                     </div>
                 </div>
                 <div class="li">
                     <div class="title">中国人民保险集团有限公司</div>
                     <div class="liImg liImg2">
-                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序-长按识别进入</div></div>
-                        <div class="imgBox i2"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序-长按识别进入</div></div>
+                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序</div></div>
+                        <div class="imgBox i2"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序</div></div>
                     </div>
                 </div>
                 <div class="li">
                     <div class="title">泰康保险有限公司</div>
                     <div class="liImg liImg3">
-                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序-长按识别进入</div></div>
+                        <div class="imgBox i1"><img src="@/assets/already_inter.png" alt=""><div class="tit">小程序</div></div>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,7 @@ export default {
         text-align: center;
         padding: 10px 0;
         color: #fff;
+        z-index: 10;
     }
     .text{
         padding-top: 75px;
@@ -77,7 +78,7 @@ export default {
                     .imgBox{
                         text-align: center;
                         display: inline-block;
-                        max-width: 192px;
+                        width: 180px;
                         overflow: hidden;
                         img{
                             width: 125px;
@@ -96,9 +97,9 @@ export default {
                     }
                 }
                 .liImg1{
-                    padding: 42px 83px 0 47px;
-                    .i1{ margin-right: 55px; }
-                    .i2{ margin-right: 56px; }
+                    padding: 42px 47px 0 47px;
+                    display: flex;
+                    justify-content: space-around;
                 }
                 .liImg2{
                     padding: 42px 160px 0;

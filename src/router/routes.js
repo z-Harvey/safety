@@ -34,7 +34,7 @@ export default [
 
 	{ path: '/poliList', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
-	{ path: '/polialready', component: polialready }, // 保单查询详情
+	{ path: '/polialready', component: polialready }, // 保单
 
 
 

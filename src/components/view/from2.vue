@@ -12,7 +12,7 @@
                 <img class="f1Bg" src="@/assets/from2_kp.png" alt="">
                 <div class="textBg">
                     填写基本信息
-                    <div class="edit">
+                    <div class="edit" @click="edit">
                         修改
                         <img src="@/assets/xiugai.png" alt="">
                     </div>
@@ -77,6 +77,7 @@ export default {
         getToken({ token: '' }).then(res => { this.token = res.data.ret })
     },
     methods: {
+        edit () { this.$router.push({ path: '/fromTable' }) },
         subMit () {
             let arr = this.callList.filter(item => item.indexPic == '')
             console.log(arr)

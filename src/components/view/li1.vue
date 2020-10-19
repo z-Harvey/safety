@@ -49,17 +49,17 @@
       <div class="title">投保流程</div>
       <img src="@/assets/tp1.png" alt="">
     </div>
-    <div class="box4">
+    <div class="box4 box41">
+      <div class="title">保险责任</div>
+      <img src="@/assets/in_bxzr.png" alt="">
+    </div>
+    <div class="box4 box42">
       <div class="title">理赔流程</div>
-      <img src="@/assets/tp2.png" alt="">
+      <img src="@/assets/in_lp.png" alt="">
     </div>
-    <div class="box4">
+    <div class="box4 box43">
       <div class="title">保险Q&A</div>
-      <img src="@/assets/tp2 (1).png" alt="">
-    </div>
-    <div class="box4">
-      <div class="title">中信湘雅医院 - 服务与价格（基本保）</div>
-      <img src="@/assets/tp4.png" alt="">
+      <img src="@/assets/in_bxQ.png" alt="">
     </div>
     <div class="box5">
       <img class="bg" src="@/assets/jbbbj.png" alt="">
@@ -511,6 +511,21 @@ export default {
       width: 716px;
       height: 296px;
     }
+  }
+  .box41{
+    text-align: center;
+    .title{ text-align: left; }
+    img{ width: 716px; height: 582px; }
+  }
+  .box42{
+    text-align: center;
+    .title{ text-align: left; }
+    img{ width: 716px; height: 509px; }
+  }
+  .box43{
+    text-align: center;
+    .title{ text-align: left; }
+    img{ width: 658px; height: 557px; }
   }
   .box5{
     position: relative;
