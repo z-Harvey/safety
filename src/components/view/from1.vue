@@ -69,8 +69,9 @@ export default {
         return {
             fromData: {
                 is_self_insure: 0,
-                insure_name: '美荣', // 投保人姓名
-                insure_card: '110101198705079024', // 投保人身份证号码
+                product_name: '',
+                insure_name: '', // 投保人姓名
+                insure_card: '', // 投保人身份证号码
                 insure_phonenum: '', // 投保人手机号
                 give_insure_name: '', // 被保人名称
                 give_insure_card: '', // 被保人身份证号
@@ -80,6 +81,7 @@ export default {
     },
     mounted () {
         this.fromData.insure_phonenum = this.$route.query.phonenum
+        this.fromData.product_name = this.$route.query.titleName
     },
     methods: {
         go() {

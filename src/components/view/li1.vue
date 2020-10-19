@@ -155,7 +155,8 @@ export default {
           {
             path: '/fromTable',
             query: {
-              phonenum: this.phonenum
+              phonenum: this.phonenum,
+              titleName: this.msgData.title
             }
           }
         )

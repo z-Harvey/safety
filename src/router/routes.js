@@ -8,7 +8,9 @@ import from1 from '../components/view/from1'
 import from2 from '../components/view/from2'
 import from3 from '../components/view/from3'
 
-import BusService from '../components/BusService'
+import BusService from '../components/business/BusService'
+import busFrom1 from '../components/business/from1'
+import busFrom2 from '../components/business/from2'
 
 import introduce from '../components/static/introduce'
 import introduce2 from '../components/static/introduce2'
@@ -21,11 +23,20 @@ import polialready from '../components/policyInquiry/already'
 export default [
 	{ path: '/introduce', component: introduce }, // 静态页一
 	{ path: '/introduce2', component: introduce2 }, // 静态页二
-	{ path: '/BusService', component: BusService }, // 商务服务
 
-	{ path: '/', component: poliList }, // 保单查询列表
+
+
+	{ path: '/', component: BusService }, // 商务服务
+	{ path: '/busFrom1', component: busFrom1 }, // 商务服务
+	{ path: '/busFrom2', component: busFrom2 }, // 商务服务
+
+
+
+	{ path: '/poliList', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
 	{ path: '/polialready', component: polialready }, // 保单查询详情
+
+
 
 	{ path: '/fromView', component: fromView }, // 主页
 	{

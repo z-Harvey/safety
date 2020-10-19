@@ -10,7 +10,7 @@
         <div class="forList" v-if="forList.length > 0">
             <div class="li" v-for="(item, index) in forList" :key="index" @click="path(item)">
                 <div class="lef">
-                    <div class="title">保单名称：人保试管婴儿险 基本保</div>
+                    <div class="title" v-text="'保单名称：' + item.product_name"></div>
 
                     <div v-if="item.is_self_insure == 0">
                         <div class="li1">
@@ -129,7 +129,6 @@ export default {
             .lef{
                 padding: 27px 29px 28px;
                 .title{
-                    width: 429px;
                     height: 40px;
                     font-size: 28px;
                     font-family: 苹方-简;
