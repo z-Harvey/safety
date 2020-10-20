@@ -85,12 +85,12 @@ export default {
     },
     methods: {
         go() {
-            if (this.fromData.insure_name === '') return alert('请填写投保人姓名')
-            if (this.fromData.insure_card === '') return alert('请填写投保人身份证号码')
+            if (this.fromData.insure_name === '') return this.showToasts('请填写投保人姓名')
+            if (this.fromData.insure_card === '') return this.showToasts('请填写投保人身份证号码')
             if (this.fromData.is_self_insure === 1) {
-                if (this.fromData.give_insure_name === '') return alert('请填写被投保人姓名')
-                if (this.fromData.give_insure_card === '') return alert('请填写被保人身份证号')
-                if (this.fromData.give_insure_phonenum === '') return alert('请填写被保人手机号')
+                if (this.fromData.give_insure_name === '') return this.showToasts('请填写被投保人姓名')
+                if (this.fromData.give_insure_card === '') return this.showToasts('请填写被保人身份证号')
+                if (this.fromData.give_insure_phonenum === '') return this.showToasts('请填写被保人手机号')
             }
             this.$parent.fromData = this.fromData
             let obj = JSON.parse(JSON.stringify(this.fromData))

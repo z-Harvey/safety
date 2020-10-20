@@ -1,6 +1,9 @@
 // 生殖险 | 试管婴儿
 <template>
     <div class="fromView">
+        <!-- <div class="shottext">
+            <div class="title" v-for="(item, index) in scrollText" :key="index" v-text="item"></div>
+        </div> -->
         <div class="title">目标医院</div>
         <div class="seleBox">
             <div class="li li1">
@@ -41,6 +44,7 @@
                 </div>
             </div>
         </div>
+        <showToast ref="toast"/>
     </div>
 </template>
 
@@ -51,6 +55,8 @@ export default {
     name: 'fromView',
     data () {
         return {
+            is_init: true,
+
             userInfo: {},
             hospitalList: [],
             token: '',
@@ -62,11 +68,30 @@ export default {
 
             province: '全部',
             city: '暂无',
-            region: '暂无'
+            region: '暂无',
+
+            scrollText: ''
         }
     },
     mounted () {
         window.addEventListener('scroll', this.onScroll)
+
+        //     this.scrollText = [0]
+        // window.addEventListener('scroll',function(){
+        //     // console.log(document.documentElement.clientHeight+'-----------'+window.innerHeight); // 可视区域高度
+        //     // console.log(document.body.scrollTop); // 滚动高度
+        //     // console.log(document.body.offsetHeight); // 文档高度
+        //     // 判断是否滚动到底部
+        //     let st = document.documentElement.scrollTop || document.body.scrollTop
+        //     console.log(st,  window.innerHeight,  document.body.offsetHeight)
+        //     if(st + window.innerHeight >= document.body.offsetHeight) {
+        //         // console.log(sw);
+        //         // 如果开关打开则加载数据
+        //         this.scrollText = [1]
+        //     }
+        // })
+
+
         document.title = '生殖险 | 试管婴儿'
 
         this.userInfo = JSON.parse(localStorage.userInfo)
@@ -127,6 +152,7 @@ export default {
             })
         },
         init () {
+            this.$refs.toast.show({ title: 'loading...' })
             let obj = {
                 token: this.userInfo.token,
                 page_size: 10,
@@ -137,9 +163,15 @@ export default {
             if (this.region !== '' && this.region !== '暂无' && this.region !== '全部') obj['region'] = this.region
             this.msg2 = '开始请求'
             getListByCon(obj).then(res => {
+                this.$refs.toast.hide()
+                this.is_init = true
                 if (this.hospitalList.length !== 0) return this.hospitalList = this.hospitalList.concat(res.data.ret.data)
                 this.hospitalList = res.data.ret.data
             })
+        },
+        showToasts (str) {
+            this.$refs.toast.show({ title: str })
+            setTimeout(() => { this.$refs.toast.hide() }, 2000)
         },
         path (item) {
             this.$router.push({
@@ -155,12 +187,21 @@ export default {
             // 屏幕尺寸高度
             let outerHeight = document.documentElement.clientHeight
             // 可滚动容器超出当前窗口显示范围的高度
-            let scrollTop = document.documentElement.scrollTop
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+            
+            this.scrollText = [
+                `可滚动容器的高度${innerHeight}`,
+                `屏幕尺寸高度${outerHeight}`,
+                `可滚动容器超出当前窗口显示范围的高度${scrollTop}`]
             // scrollTop在页面为滚动时为0，开始滚动后，慢慢增加，滚动到页面底部时，出现innerHeight <= (outerHeight + scrollTop)的情况，严格来讲，是接近底部。
-            if (outerHeight + scrollTop >= innerHeight) {
-                this.page += 1
-                // 加载更多操作
-                this.init()
+            if (innerHeight - (outerHeight + scrollTop) <= 50) {
+                if (this.is_init) {
+                    this.is_init = false
+                    this.page += 1
+                    // 加载更多操作
+                    console.log(1)
+                    this.init()
+                }
             }
         }
     }
@@ -169,6 +210,16 @@ export default {
 
 <style lang="scss" scoped>
 .fromView{
+    .shottext{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        padding: 50px 0;
+        z-index: 50;
+    }
     .title{
         padding: 37px 0 23px 32px;
         height: 45px;
