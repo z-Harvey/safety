@@ -6,6 +6,7 @@
             <div class="li li1">
                 <span>省</span>
                 <select v-model="province" @change="getCity(province)">
+                    <option>全部</option>
                     <option v-for="(item, index) in s1List" :key="index" v-text="item.province"></option>
                 </select>
                 <img src="@/assets/xj.png" alt="">
@@ -13,13 +14,15 @@
             <div class="li li2">
                 <span>市</span>
                 <select v-model="city" @change="getRegion(province, city)">
+                    <option v-if="s2List.length == 0">暂无</option>
                     <option v-for="(item, index) in s2List" :key="index" v-text="item.city"></option>
                 </select>
                 <img src="@/assets/xj.png" alt="">
             </div>
             <div class="li li3">
                 <span>区</span>
-                <select v-model="region">
+                <select v-model="region" @change="init()">
+                    <option v-if="s3List.length == 0">暂无</option>
                     <option v-for="(item, index) in s3List" :key="index" v-text="item.region"></option>
                 </select>
                 <img src="@/assets/xj.png" alt="">
@@ -55,16 +58,22 @@ export default {
             s2List: [],
             s3List: [],
 
-            province: '',
-            city: '',
-            region: ''
+            page: 1,
+
+            province: '全部',
+            city: '暂无',
+            region: '暂无'
         }
     },
     mounted () {
+        window.addEventListener('scroll', this.onScroll)
         document.title = '生殖险 | 试管婴儿'
 
         this.userInfo = JSON.parse(localStorage.userInfo)
-        this.getProvince()
+        this.getProvince('init')
+    },
+    watch: {
+        province (ne) { if(ne == '全部') this.init({}) }
     },
     methods: {
         getProvince () {
@@ -72,10 +81,8 @@ export default {
                 token: this.userInfo.token,
                 type: 0
             }).then(res => {
-                console.log('res', res)
                 this.s1List = res.data.ret
-                this.province = res.data.ret[0].province
-                this.getCity(res.data.ret[0].province)
+                this.init()
             })
         },
         getCity (str) {
@@ -84,12 +91,17 @@ export default {
                 type: 1,
                 province: str
             }).then(ges => {
-                this.s2List = ges.data.ret
-                if (ges.data.ret.length == 0) {
-                    return this.init({ token: this.userInfo.token })
+                let arr = ges.data.ret.filter(item => item.city !== null)
+                if (arr.length !== 0) arr.unshift({ city: '全部' })
+                this.s2List = arr
+                if (this.s2List.length == 0) {
+                    this.city = '暂无'
+                    this.page = 0
+                    this.hospitalList = []
+                    return this.init()
                 }
-                this.city = ges.data.ret[0].city
-                this.getRegion(str, ges.data.ret[0].city)
+                this.city = this.s2List[0].city
+                this.getRegion(str, this.s2List[0].city)
             })
         },
         getRegion (str, str1) {
@@ -99,18 +111,33 @@ export default {
                 province: str,
                 city: str1
             }).then(tes => {
-                if (tes.data.ret.length == 0) {
-                    return this.init({ token: this.userInfo.token, province: str, city: str1 })
+                let arr = tes.data.ret.filter(item => item.region !== null)
+                if (arr.length !== 0) arr.unshift({ region: '全部' })
+                this.s3List = arr
+                this.page = 0
+                this.hospitalList = []
+                if (this.s3List.length == 0) {
+                    this.region = '暂无'
+                    this.page = 0
+                    this.hospitalList = []
+                    return this.init()
                 }
-                this.region = tes.data.ret[0].region
-                this.s3List = tes.data.ret
-                this.init({ token: this.userInfo.token, province: str, city: str1 })
+                this.region = this.s3List[0].region
+                this.init()
             })
         },
-        init (obj) {
-            console.log(this.userInfo)
+        init () {
+            let obj = {
+                token: this.userInfo.token,
+                page_size: 10,
+                page: this.page
+            }
+            if (this.province !== '' && this.province !== '全部') obj['province'] = this.province
+            if (this.city !== '' && this.city !== '暂无' && this.city !== '全部') obj['city'] = this.city
+            if (this.region !== '' && this.region !== '暂无' && this.region !== '全部') obj['region'] = this.region
             this.msg2 = '开始请求'
             getListByCon(obj).then(res => {
+                if (this.hospitalList.length !== 0) return this.hospitalList = this.hospitalList.concat(res.data.ret.data)
                 this.hospitalList = res.data.ret.data
             })
         },
@@ -121,6 +148,20 @@ export default {
                     id: item.id
                 }
             })
+        },
+        onScroll () {
+            // 可滚动容器的高度
+            let innerHeight = document.querySelector('#app').clientHeight
+            // 屏幕尺寸高度
+            let outerHeight = document.documentElement.clientHeight
+            // 可滚动容器超出当前窗口显示范围的高度
+            let scrollTop = document.documentElement.scrollTop
+            // scrollTop在页面为滚动时为0，开始滚动后，慢慢增加，滚动到页面底部时，出现innerHeight <= (outerHeight + scrollTop)的情况，严格来讲，是接近底部。
+            if (outerHeight + scrollTop >= innerHeight) {
+                this.page += 1
+                // 加载更多操作
+                this.init()
+            }
         }
     }
 }
