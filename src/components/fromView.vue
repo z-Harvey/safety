@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { login, getListByCon, getAreaByHospital } from '../api/getApi'
+import { getListByCon, getAreaByHospital } from '../api/getApi'
 
 export default {
     name: 'fromView',
@@ -63,53 +63,8 @@ export default {
     mounted () {
         document.title = '生殖险 | 试管婴儿'
 
-
         this.userInfo = JSON.parse(localStorage.userInfo)
         this.getProvince()
-
-        // let arr = window.location.href.split('?')[1].split('&')
-        // let obj = {}
-        // arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-
-        // this.token = obj.code
-
-        // login({ code: obj.code }).then(res => {
-        //     if (res.data.message == '微信授权失败') {
-        //         this.userInfo = JSON.parse(localStorage.userInfo)
-        //         this.token = this.userInfo.token
-        //         this.getProvince()
-        //         return
-        //     }
-        //     this.token = res.data.ret.token
-        //     localStorage.userInfo = JSON.stringify(res.data.ret)
-        //     this.userInfo = res.data.ret
-        //     this.getProvince()
-        // })
-
-        // this.userInfo = JSON.parse(localStorage.userInfo)
-        // this.getProvince()
-        // getConfig({ token: '', url: 'www.baidu.com', jsApiList: 'chooseImage' }).then(res => {
-        //     console.log(res)
-        //     let { appId, timestamp, nonceStr, signature } = res.data.ret
-        //     this.$wx.config({
-        //         beta: true,
-        //         debug: false,
-        //         appId,
-        //         timestamp,
-        //         nonceStr,
-        //         signature,
-        //         jsApiList: ['chooseImage'],
-        //         success: res => {
-        //             console.log(res)
-        //         }
-        //     })
-        //     this.$wx.ready(res => {
-        //         console.log(res)
-        //     })
-        //     this.$wx.error(res => {
-        //         console.log(res)
-        //     })
-        // })
     },
     methods: {
         getProvince () {
@@ -131,7 +86,7 @@ export default {
             }).then(ges => {
                 this.s2List = ges.data.ret
                 if (ges.data.ret.length == 0) {
-                    return this.init({ token: this.userInfo.token, province: str })
+                    return this.init({ token: this.userInfo.token })
                 }
                 this.city = ges.data.ret[0].city
                 this.getRegion(str, ges.data.ret[0].city)
@@ -156,7 +111,6 @@ export default {
             console.log(this.userInfo)
             this.msg2 = '开始请求'
             getListByCon(obj).then(res => {
-                
                 this.hospitalList = res.data.ret.data
             })
         },

@@ -15,14 +15,11 @@ Vue.component('showToast', showToast)
 import { login } from './api/getApi'
 
 (() => {
-    console.log('window.location.href', window.location.href.split('?')[1])
     let arr = window.location.href.split('?')
     if (arr.length <= 1) return
     arr = arr[1].split('&')
     let obj = {}
     arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-    // alert(obj.code)
-    // return
     login({ code: obj.code }).then(res => {
         if (res.data.code !== 200) return
         localStorage.userInfo = JSON.stringify(res.data.ret)
