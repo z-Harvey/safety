@@ -1,9 +1,9 @@
 // 生殖险 | 试管婴儿
 <template>
     <div class="fromView">
-        <!-- <div class="shottext">
-            <div class="title" v-for="(item, index) in scrollText" :key="index" v-text="item"></div>
-        </div> -->
+        <!-- <div class="shottext" v-text="test"> -->
+            <!-- <div class="title" v-for="(item, index) in scrollText" :key="index" v-text="item"></div> -->
+        <!-- </div> -->
         <div class="title">目标医院</div>
         <div class="seleBox">
             <div class="li li1">
@@ -70,7 +70,9 @@ export default {
             city: '暂无',
             region: '暂无',
 
-            scrollText: ''
+            scrollText: '',
+
+            test: 0
         }
     },
     mounted () {
@@ -121,7 +123,7 @@ export default {
                 this.s2List = arr
                 if (this.s2List.length == 0) {
                     this.city = '暂无'
-                    this.page = 0
+                    this.page = 1
                     this.hospitalList = []
                     return this.init()
                 }
@@ -139,11 +141,11 @@ export default {
                 let arr = tes.data.ret.filter(item => item.region !== null)
                 if (arr.length !== 0) arr.unshift({ region: '全部' })
                 this.s3List = arr
-                this.page = 0
+                this.page = 1
                 this.hospitalList = []
                 if (this.s3List.length == 0) {
                     this.region = '暂无'
-                    this.page = 0
+                    this.page = 1
                     this.hospitalList = []
                     return this.init()
                 }
@@ -152,6 +154,7 @@ export default {
             })
         },
         init () {
+            this.test++
             this.$refs.toast.show({ title: 'loading...' })
             let obj = {
                 token: this.userInfo.token,

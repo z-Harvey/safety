@@ -62,7 +62,8 @@
       <img src="@/assets/in_bxQ.png" alt="">
     </div>
     <div class="box5">
-      <img class="bg" src="@/assets/jbbbj.png" alt="">
+      <div class="yy"></div>
+      <!-- <img class="bg" src="@/assets/jbbbj.png" alt=""> -->
       <div class="textBox">
         <div class="title" v-text="msgData.title"></div>
         <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
@@ -529,19 +530,30 @@ export default {
   }
   .box5{
     position: relative;
-    padding: 0 23px;
+    padding: 48px 23px 53px;
+    width: 640px;
+    background: linear-gradient(137deg, #4DEAD8 0%, #579FF1 100%);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    margin: 25px auto 0;
+    overflow: hidden;
+    .yy{
+      position: absolute;
+      right: 36px;
+      bottom: -120px;
+      width: 367px;
+      height: 367px;
+      background: #56A9EE;
+      border-radius: 50%;
+      z-index: 10px;
+    }
     .bg{
       width: 704px;
       height: 587px;
     }
     .textBox{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: relative;
       .title{
-        margin-top: 54px;
         height: 45px;
         font-size: 32px;
         font-family: 苹方-简;
@@ -569,8 +581,8 @@ export default {
           color: rgba(255, 255, 255, 0.8);
         }
         .li2{
+          width: 340px;
           padding-left: 67px;
-          height: 37px;
           font-size: 26px;
           font-family: 苹方-简;
           font-weight: normal;
@@ -594,7 +606,7 @@ export default {
     color: #FFFFFF;
     letter-spacing: 4px;
     position: relative;
-    top: -57px;
+    top: 63px;
     left: calc(50% - 343px);
   }
     .ph{
