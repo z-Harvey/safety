@@ -51,6 +51,7 @@ export default {
         }
     },
     mounted () {
+        document.title = '核保订单'
         this.userInfo = JSON.parse(localStorage.userInfo)
         this.id = this.$route.query.id
         getInsureOrderById({ token: this.userInfo.token, id: this.id }).then(res => {

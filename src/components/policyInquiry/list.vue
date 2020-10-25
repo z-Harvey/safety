@@ -56,6 +56,7 @@ export default {
         }
     },
     mounted () {
+        document.title = '订单查询'
         this.userInfo = JSON.parse(localStorage.userInfo)
         this.init()
     },

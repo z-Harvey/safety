@@ -35,7 +35,11 @@ export default {
     },
     mounted () { document.title = '商务服务' },
     methods: {
-        path () { if (this.code == 13579) this.$router.push({ path: '/busFrom1' }) }
+        path () {
+            console.log(this.code)
+            if (this.code == 13579) return this.$router.push({ path: '/busFrom1' })
+            alert('验证失败')
+        }
     }
 }
 </script>

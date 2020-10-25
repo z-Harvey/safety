@@ -1,6 +1,6 @@
 import listView from '../components/listView'
-import li1 from '../components/view/li1'
-import li2 from '../components/view/li2'
+// import li1 from '../components/view/li1'
+// import li2 from '../components/view/li2'
 
 import fromView from '../components/fromView'
 import fromTable from '../components/fromTable'
@@ -23,7 +23,6 @@ import polialready from '../components/policyInquiry/already'
 export default [
 	{ path: '/introduce', component: introduce }, // 静态页一
 	{ path: '/introduce2', component: introduce2 }, // 静态页二
-
 
 
 	{ path: '/BusService', component: BusService }, // 商务服务
@@ -50,10 +49,6 @@ export default [
 	},
 	{
 		path: "/listView",
-		component: listView,
-		children: [
-			{ path: '/', name: 'li1', component: li1 },
-			{ path: '/li2', name: 'li2', component: li2 }
-		]
+		component: listView
 	}
 ]

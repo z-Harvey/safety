@@ -177,10 +177,12 @@ export default {
             setTimeout(() => { this.$refs.toast.hide() }, 2000)
         },
         path (item) {
+            console.log(item)
             this.$router.push({
                 path: '/listView',
                 query: {
-                    id: item.id
+                    id: item.id,
+                    title: `${item.name}-${item.title}`
                 }
             })
         },

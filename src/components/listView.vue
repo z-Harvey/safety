@@ -8,15 +8,10 @@
         <div class="title">
           <span v-text="msgData.name"></span>
           <div class="s"></div>
+          <div class="zzz" v-text="insType">成功保</div>
         </div>
-        <div class="li1">
-          专业承保，诚信可靠，理赔便捷
-          <img src="@/assets/dh.png" alt="">
-        </div>
-        <div class="li1">
-          知名生殖中心，更放心的专业医疗服务
-          <img src="@/assets/dh.png" alt="">
-        </div>
+        <!-- <div class="li1">专业承保，诚信可靠，理赔便捷<img src="@/assets/dh.png" alt=""></div>
+        <div class="li1">知名生殖中心，更放心的专业医疗服务<img src="@/assets/dh.png" alt=""></div> -->
         <div class="li2">
           <div class="ul">
             <div :class="act == 0? 'li act li1s': 'li li1s'" v-if="msgData.content.length > 0" @click="ulCli(msgData.content[0], 0)">
@@ -36,11 +31,12 @@
             </div>
           </div>
         </div>
-        <div class="tag">2年内至少完成1次取卵3次移植失败即可赔付</div>
+        <!-- <div class="tag">2年内至少完成1次取卵3次移植失败即可赔付</div> -->
       </div>
       <div class="rig">
         <div class="l1">
-          <img class="img1" src="@/assets/plcc.png" alt="">
+          <img v-if="id == 1" class="img1" src="@/assets/plcc.png" alt="">
+          <img v-else class="img1" src="@/assets/timg.png" alt="">
           <div class="s"></div>
           <img class="img2" src="@/assets/yiweidu.png" alt="">
         </div>
@@ -48,12 +44,20 @@
       </div>
     </div>
     <!-- <router-view></router-view> -->
-    <li1 :msgData="cliData"/>
+    <li1 v-if="id == 1 && act == 1" :msgData="cliData"/>
+    <li2 v-if="id == 1 && act == 0" :msgData="cliData"/>
+    <!-- 平安基本 -->
+    <li3 v-if="id == 2 && act == 1" :msgData="cliData"/>
+    <!-- 平安 -->
+    <li4 v-if="id == 2 && act == 0" :msgData="cliData"/>
   </div>
 </template>
 
 <script>
-import li1 from './view/li1'
+import li1 from './view/insListType/li1'
+import li2 from './view/insListType/li2'
+import li3 from './view/insListType/li3'
+import li4 from './view/insListType/li4'
 // import { getConfig, getById } from '../api/getApi'
 import { getById } from '../api/getApi'
 
@@ -71,11 +75,13 @@ export default {
       cliData: {
         title: '',
         list: []
-      }
+      },
+      insType: ''
     }
   },
-  components: { li1 },
+  components: { li1, li2, li3, li4 },
   created () {
+    document.title = this.$route.query.title
     this.userInfo = JSON.parse(localStorage.userInfo)
     this.id = this.$route.query.id
     this.init()
@@ -83,6 +89,7 @@ export default {
   methods: {
     ulCli (ite, n) {
       this.act = n
+      this.insType = ite.name
       this.cliData = {
         title: `${this.msgData.name}-${ite.name}`,
         list: ite
@@ -101,6 +108,7 @@ export default {
       getById(obj).then(res => {
         console.log(res)
         this.msgData = res.data.ret
+        this.insType = this.msgData.content[0].name
         this.cliData = {
           title: `${this.msgData.name}-${res.data.ret.content[0].name}`,
           list: res.data.ret.content[0]
@@ -120,15 +128,15 @@ export default {
     .box1Img{
       margin: 30px 17px 0;
       width: 716px;
-      height: 477px;
+      height: 448px;
     }
     .lef{
       position: absolute;
       top: 0;
       left: 0;
       padding: 70px 61px 0;
+      width: calc(100% - 122px);
       .title{
-        height: 78px;
         font-size: 56px;
         font-family: 苹方-简;
         font-weight: normal;
@@ -140,6 +148,15 @@ export default {
           height: 0px;
           background: #FDA070;
           border: 3px solid #FDA070;
+        }
+        .zzz{
+          margin-top: 20px;
+          height: 56px;
+          font-size: 40px;
+          font-family: 苹方-简;
+          font-weight: normal;
+          line-height: 56px;
+          color: #3C84E8;
         }
       }
       .li1{
@@ -160,6 +177,7 @@ export default {
         }
       }
       .li2{
+        width: 100%;
         margin-top: 30px;
         .ul{
           display: flex;
@@ -221,13 +239,12 @@ export default {
     }
     .rig{
       position: absolute;
-      top: 58px;
+      top: 145px;
       right: -22px;
       transform: scale(.5);
       .l1{
         .img1{
           width: 128px;
-          height: 82px;
         }
         .s{
           display: inline-block;
