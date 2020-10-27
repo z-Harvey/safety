@@ -48,9 +48,9 @@
     </div>
     <img class="bomTag" src="@/assets/li1_i6.png" alt="">
     <div class="btn" @click="path()">投保审核</div>
-    <a class="ph" href="wtai://wp//mc;13764567708">
+    <!-- <a class="ph" href="wtai://wp//mc;13764567708">
         <img src="@/assets/from_gdzx.png" alt="">
-    </a>
+    </a> -->
     <div class="modFrom" v-if="isPhone" @click.stop="isPhone = false">
       <div class="fromBox" @click.stop>
         <div class="f_title">
@@ -124,6 +124,7 @@ export default {
       }
       if (this.phonenum == '') return this.showToasts('请输入手机号码')
       if (this.code == '') return this.showToasts('请输入验证码')
+      if (this.code.length !== 6) return this.showToasts('请输入六位验证码')
       checkPhonenum(obj).then(res => {
         console.log(res)
         if (res.data.code !== 200) return this.showToasts( res.data.message )
@@ -195,11 +196,11 @@ export default {
 
 <style lang="scss" scoped>
 .listView{
-  padding-bottom: 50px;
+  padding-bottom: 100px;
   .bomTag{
     width: 686px;
     height: 30px;
-    margin: 65px 0 0 31px;
+    margin: 65px 0 50px 31px;
   }
   .by{
     width: 684px;
@@ -587,8 +588,8 @@ export default {
     line-height: 93px;
     color: #FFFFFF;
     letter-spacing: 4px;
-    position: relative;
-    top: 63px;
+    position: fixed;
+    bottom: 20px;
     left: calc(50% - 343px);
   }
     .ph{

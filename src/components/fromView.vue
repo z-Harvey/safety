@@ -181,6 +181,7 @@ export default {
             this.$router.push({
                 path: '/listView',
                 query: {
+                    name: item.name,
                     id: item.id,
                     title: `${item.name}-${item.title}`
                 }

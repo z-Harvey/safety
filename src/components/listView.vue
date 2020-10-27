@@ -44,12 +44,12 @@
       </div>
     </div>
     <!-- <router-view></router-view> -->
-    <li1 v-if="id == 1 && act == 1" :msgData="cliData"/>
-    <li2 v-if="id == 1 && act == 0" :msgData="cliData"/>
+    <li1 v-if="name == '中国人保产品' && act == 1" :msgData="cliData"/>
+    <li2 v-if="name == '中国人保产品' && act == 0" :msgData="cliData"/>
     <!-- 平安基本 -->
-    <li3 v-if="id == 2 && act == 1" :msgData="cliData"/>
+    <li3 v-if="name == '中国平安产品' && act == 1" :msgData="cliData"/>
     <!-- 平安 -->
-    <li4 v-if="id == 2 && act == 0" :msgData="cliData"/>
+    <li4 v-if="name == '中国平安产品' && act == 0" :msgData="cliData"/>
   </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
     return {
       act: 0,
       id: '',
+      name: '',
       userInfo: {},
       msgData: {
         content: []
@@ -84,6 +85,7 @@ export default {
     document.title = this.$route.query.title
     this.userInfo = JSON.parse(localStorage.userInfo)
     this.id = this.$route.query.id
+    this.name = this.$route.query.name
     this.init()
   },
   methods: {
