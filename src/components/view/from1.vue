@@ -95,6 +95,8 @@ export default {
             this.$parent.fromData = this.fromData
             let obj = JSON.parse(JSON.stringify(this.fromData))
             obj['token'] = JSON.parse(localStorage.userInfo).token
+            obj['out_product_id'] = this.$route.query.out_product_id
+            obj['type'] = this.$route.query.type
             apply(obj).then(res => {
                 console.log(res)
                 if (res.data.code !== 200) return this.showToasts(res.data.message)

@@ -102,7 +102,7 @@
         </div> -->
         <div class="inp2">
           <div class="inp">
-            <input type="text" v-model="code" placeholder="请输入短信验证码">
+            <input type="text" maxlength="6" v-model="code" placeholder="请输入短信验证码">
             <img class="img2" src="@/assets/f_i3.png" alt="">
           </div>
           <div class="btn111" @click="getSe" v-text="codeText"></div>
@@ -162,6 +162,8 @@ export default {
           {
             path: '/fromTable',
             query: {
+              out_product_id: this.msgData.list.out_product_id,
+              type: this.msgData.list.type,
               phonenum: this.phonenum,
               titleName: this.msgData.title
             }
