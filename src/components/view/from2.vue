@@ -41,7 +41,7 @@
             <img :src="showImg" @click.stop="">
         </div>
         <div class="btn" @click="subMit">下一步</div>
-        <a class="gdzx" href="wtai://wp//mc;13764567708">
+        <a class="gdzx" @click="iphon">
             <img src="@/assets/from_gdzx.png" alt="">
         </a>
         <showToast ref="toast"/>
@@ -55,6 +55,7 @@ export default {
     name: 'from2',
     data () {
         return {
+            btn: true,
             radio: 1,
             showImg: '',
             userInfo: {},
@@ -77,8 +78,12 @@ export default {
         getToken({ token: '' }).then(res => { this.token = res.data.ret })
     },
     methods: {
+        iphon () {
+        this.$parent.showAndHide()
+        },
         edit () { this.$router.push({ path: '/fromTable' }) },
         subMit () {
+            if (!this.btn) return
             let arr = this.callList.filter(item => item.indexPic == '')
             console.log(arr)
             if (arr.length !== 0) return this.showToasts(`请上传   ${arr[0].label}`)
@@ -87,7 +92,9 @@ export default {
                 id: this.$parent.id,
                 upload_json: this.callList
             }
+            this.btn = false
             uploadImg(obj).then(res => {
+                this.btn = true
                 console.log(res)
                 if (res.data.code !== 200) return alert(res.data.message)
                 this.$router.replace({ path: '/from3' })

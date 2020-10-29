@@ -35,7 +35,7 @@
       </div>
       <div class="rig">
         <div class="l1">
-          <img v-if="id == 1" class="img1" src="@/assets/plcc.png" alt="">
+          <img v-if="name == '中国人保产品'" class="img1" src="@/assets/plcc.png" alt="">
           <img v-else class="img1" src="@/assets/timg.png" alt="">
           <div class="s"></div>
           <img class="img2" src="@/assets/yiweidu.png" alt="">
@@ -50,6 +50,7 @@
     <li3 v-if="name == '中国平安产品' && act == 1" :msgData="cliData"/>
     <!-- 平安 -->
     <li4 v-if="name == '中国平安产品' && act == 0" :msgData="cliData"/>
+    <cust ref="cust"/>
   </div>
 </template>
 
@@ -58,6 +59,7 @@ import li1 from './view/insListType/li1'
 import li2 from './view/insListType/li2'
 import li3 from './view/insListType/li3'
 import li4 from './view/insListType/li4'
+import cust from './view/custService'
 // import { getConfig, getById } from '../api/getApi'
 import { getById } from '../api/getApi'
 
@@ -80,7 +82,7 @@ export default {
       insType: ''
     }
   },
-  components: { li1, li2, li3, li4 },
+  components: { li1, li2, li3, li4, cust },
   created () {
     document.title = this.$route.query.title
     this.userInfo = JSON.parse(localStorage.userInfo)
@@ -89,6 +91,9 @@ export default {
     this.init()
   },
   methods: {
+    showAndHide () {
+        this.$refs.cust.isShow = true
+    },
     ulCli (ite, n) {
       this.act = n
       this.insType = ite.name

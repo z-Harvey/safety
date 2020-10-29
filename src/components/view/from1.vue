@@ -53,7 +53,7 @@
             <div class="from2">等待审核结果</div>
         </div>
         <div class="btn" @click="go">下一步</div>
-        <a class="gdzx" href="wtai://wp//mc;13764567708">
+        <a class="gdzx" @click="iphon">
             <img src="@/assets/from_gdzx.png" alt="">
         </a>
         <showToast ref="toast"/>
@@ -67,6 +67,7 @@ export default {
     name: 'from1',
     data () {
         return {
+            btn: true,
             fromData: {
                 is_self_insure: 0,
                 product_name: '',
@@ -84,7 +85,11 @@ export default {
         this.fromData.product_name = this.$route.query.titleName
     },
     methods: {
+        iphon () {
+        this.$parent.showAndHide()
+        },
         go() {
+            if (!this.btn) return
             if (this.fromData.insure_name === '') return this.showToasts('请填写投保人姓名')
             if (this.fromData.insure_card === '') return this.showToasts('请填写投保人身份证号码')
             if (this.fromData.is_self_insure === 1) {
@@ -97,7 +102,9 @@ export default {
             obj['token'] = JSON.parse(localStorage.userInfo).token
             obj['out_product_id'] = this.$route.query.out_product_id
             obj['type'] = this.$route.query.type
+            this.btn = false
             apply(obj).then(res => {
+                this.btn = true
                 console.log(res)
                 if (res.data.code !== 200) return this.showToasts(res.data.message)
                 res.data.ret.nullValueList.map(p1 => {

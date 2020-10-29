@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- <div class="btn">下一步</div> -->
-        <a class="gdzx" href="wtai://wp//mc;13764567708">
+        <a class="gdzx" @click="iphon">
             <img src="@/assets/from_gdzx.png" alt="">
         </a>
     </div>
@@ -37,6 +37,11 @@ export default {
     data () {
         return {
             radio: 1
+        }
+    },
+    methods: {
+        iphon () {
+            this.$parent.showAndHide()
         }
     }
 }

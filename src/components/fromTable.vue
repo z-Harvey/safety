@@ -3,10 +3,13 @@
     <div class="fromTable">
         <div class="tag">*为审核一次性通过，请务必提交正确的信息和清晰的资料</div>
         <router-view></router-view>
+        <cust ref="cust"/>
     </div>
 </template>
 
 <script>
+import cust from './view/custService'
+
 export default {
     name: 'fromTable',
     data () {
@@ -16,8 +19,14 @@ export default {
             id: ''
         }
     },
+    components: { cust },
     mounted () {
         document.title = '投保基本信息'
+    },
+    methods: {
+        showAndHide () {
+            this.$refs.cust.isShow = true
+        }
     }
 }
 </script>
