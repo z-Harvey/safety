@@ -142,8 +142,18 @@ export default {
       })
     },
     path () {
-      console.log(1)
-      this.isPhone = true
+      if (this.userInfo.phonenum == null || this.userInfo.phonenum == '') return this.isPhone = true
+      this.$router.push(
+          {
+            path: '/fromTable',
+            query: {
+              out_product_id: this.msgData.list.out_product_id,
+              type: this.msgData.list.type,
+              phonenum: this.userInfo.phonenum,
+              titleName: this.msgData.title
+            }
+          }
+        )
       // this.$refs.toast.show({ title: 'loading...' })
       // setTimeout(() => { this.$refs.toast.hide() }, 2000)
       // this.$router.push({ path: '/fromTable' })

@@ -28,7 +28,7 @@ export default [
 	{ path: '/introduce', component: introduce }, // 静态页一
 	{ path: '/introduce2', component: introduce2 }, // 静态页二
 
-	{ path: '/', component: websitePage }, // 官网
+	{ path: '/websitePage', component: websitePage }, // 官网
 
 
 	{ path: '/BusService', component: BusService }, // 商务服务
@@ -37,7 +37,7 @@ export default [
 
 
 
-	{ path: '/poliList', component: poliList }, // 保单查询列表
+	{ path: '/', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
 	{ path: '/polialready', component: polialready }, // 保单
 

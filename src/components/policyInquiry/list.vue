@@ -39,6 +39,7 @@
 
 <script>
 import { getInsureOrderListByCon } from '../../api/getApi'
+import { loginFn } from '../../util/pubApi'
 
 export default {
     name: 'list',
@@ -57,8 +58,10 @@ export default {
     },
     mounted () {
         document.title = '订单查询'
-        this.userInfo = JSON.parse(localStorage.userInfo)
-        this.init()
+        loginFn().then(res => {
+            this.userInfo = JSON.parse(localStorage.userInfo)
+            this.init()
+        })
     },
     methods: {
         path(item) {

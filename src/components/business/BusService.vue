@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { loginFn } from '../../util/pubApi'
+
 export default {
     name: 'BusService',
     data () {
@@ -33,6 +35,7 @@ export default {
             code: ''
         }
     },
+    created () { loginFn() },
     mounted () { document.title = '商务服务' },
     methods: {
         path () {

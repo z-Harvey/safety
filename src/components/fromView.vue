@@ -50,6 +50,7 @@
 
 <script>
 import { getListByCon, getAreaByHospital } from '../api/getApi'
+import { loginFn } from '../util/pubApi'
 
 export default {
     name: 'fromView',
@@ -95,9 +96,10 @@ export default {
 
 
         document.title = '生殖险 | 试管婴儿'
-
-        this.userInfo = JSON.parse(localStorage.userInfo)
-        this.getProvince('init')
+        loginFn().then(res => {
+            this.userInfo = JSON.parse(localStorage.userInfo)
+            this.getProvince('init')
+        })
     },
     watch: {
         province (ne) { if(ne == '全部') this.init({}) }
