@@ -5,6 +5,33 @@ import wx from 'weixin-js-sdk'
 // import lrz from 'lrz'
 import { compressImg } from './util/pubApi'
 
+import { login } from './api/getApi'
+
+(() => {
+  let arr = window.location.href.split('?')
+  // if (arr.length <= 1) return
+  arr = arr[1].split('&')
+  let obj = {}
+  arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+  // if (obj.code == undefined) return
+  alert('code', obj.code)
+  login({ code: obj.code }).then(res => {
+      if (res.data.code == 200) {
+        // getConfig({
+        //   token: res.data.ret.token,
+        //   url: 'http://ywdh5.programdoglovelaugh.top',
+        //   jsApiList: 'updateAppMessageShareData,updateTimelineShareData,scanQRCode,onMenuShareAppMessage,onMenuShareTimeline,chooseWXPay'
+        // }).then(ces => {
+        //   console.log('ces', ces)
+        // })
+        localStorage.userInfo = JSON.stringify(res.data.ret)
+        return
+      }
+      alert(res.data.message)
+  })
+})()
+
+
 import showToast from './components/assembly/showToast.vue'
 
 import 'lib-flexible'

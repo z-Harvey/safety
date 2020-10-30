@@ -44,8 +44,7 @@
       return {
       }
     },
-    methods: {
-    }
+    created () { document.title = '一维渡' }
   }
 </script>
 

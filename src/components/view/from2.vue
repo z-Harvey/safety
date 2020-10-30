@@ -29,7 +29,7 @@
                             <img class="del" src="@/assets/from2_del.png" alt="" @click="item.indexPic = ''">
                         </div>
                         <div class="imgBox" v-else>
-                            <input type="file" @change="upFile(item, $event)">
+                            <input type="file" accept="image/*" @change="upFile(item, $event)">
                             <img class="add" src="@/assets/from2_add.png" alt="">
                         </div>
                     </div>

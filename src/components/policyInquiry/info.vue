@@ -7,16 +7,20 @@
                 <div class="title a" v-else-if="msg.pass_flag == 0">审核中</div>
                 <div class="title b" v-else-if="msg.pass_flag == 1">审核已通过</div>
                 <div class="y">
+                    <div class="li"><span class="lef">保单名称：</span><span class="rig" v-text="msg.product_name"></span></div>
+                </div>
+                <div class="y">
                     <div class="li">
                         <span class="lef">核保单号：</span>
-                        <span class="rig" v-if="msg.is_self_insure == 0" v-text="msg.insure_card"></span>
-                        <span class="rig" v-else v-text="msg.give_insure_card"></span>
+                        <span class="rig" v-text="msg.trade_no"></span>
+                        <!-- <span class="rig" v-if="msg.is_self_insure == 0" v-text="msg.trade_no"></span> -->
+                        <!-- <span class="rig" v-else v-text="msg.give_insure_card"></span> -->
                     </div>
                     <div class="li"><span class="lef">核保提交时间：</span><span class="rig" v-text="msg.created_at"></span></div>
                 </div>
                 <div class="y">
                     <div class="li"><span class="lef">投保人：</span><span class="rig" v-text="msg.insure_name"></span></div>
-                    <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="'1111111111'"></span></div>
+                    <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="msg.insure_card"></span></div>
                     <div class="li"><span class="lef">手机号码：</span><span class="rig" v-text="msg.insure_phonenum"></span></div>
                 </div>
                 <div class="y">
@@ -24,15 +28,21 @@
                 </div>
                 <div class="y" v-if="msg.is_self_insure == 1">
                     <div class="li"><span class="lef">被投保人：</span><span class="rig" v-text="msg.give_insure_name"></span></div>
-                    <!-- <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="msg"></span></div> -->
+                    <div class="li"><span class="lef">证件号码：</span><span class="rig" v-text="msg.give_insure_card"></span></div>
                     <div class="li"><span class="lef">手机号码：</span><span class="rig" v-text="msg.give_insure_phonenum"></span></div>
                 </div>
-                <div class="y">
+                <div class="y" v-if="msg.pass_flag == 1">
+                    <div class="li" @click="jump(msg.is_show, msg.pay_url)">
+                        <span class="lef">去投保：</span>
+                        <span :class="msg.is_show? 'rig rigUrl': 'rig'" v-text="msg.is_show? msg.pay_url: '请前往医院投保'"></span>
+                    </div>
+                </div>
+                <!-- <div class="y">
                     <div class="li" v-for="(ite, ind) in msg.upload_json.nullValueList" :key="ind">
                         <span class="lef" v-text="ite.label + '：'"></span>
                         <span class="rig">RB010200911005</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -58,6 +68,11 @@ export default {
             console.log(res)
             this.msg = res.data.ret
         })
+    },
+    methods: {
+        jump (nani, url) {
+            if (nani) window.location.href = url
+        }
     }
 }
 </script>
@@ -98,13 +113,22 @@ export default {
                 text-align: center;
                 .li{
                     margin-bottom: 10px;
-                    height: 33px;
                     font-size: 24px;
                     font-family: 苹方-简;
                     font-weight: normal;
                     line-height: 33px;
-                    .lef{ color: rgba(163, 160, 160, 1); }
+                    .lef{ color: rgba(163, 160, 160, 1); vertical-align: top; }
                     .rig{ color: rgba(67, 67, 67, 1); }
+                    .rigUrl{
+                        height: 33px;
+                        max-width: 450px;
+                        line-height: 33px;
+                        display: inline-block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        color: blue;
+                    }
                 }
             }
         }
