@@ -78,9 +78,9 @@
     </div>
     <img class="bomTag" src="@/assets/li1_i6.png" alt="">
     <div class="btn" @click="path()">投保审核</div>
-    <!-- <a class="ph" href="wtai://wp//mc;13764567708">
+    <a class="ph" @click="iphon">
         <img src="@/assets/from_gdzx.png" alt="">
-    </a> -->
+    </a>
     <div class="modFrom" v-if="isPhone" @click.stop="isPhone = false">
       <div class="fromBox" @click.stop>
         <div class="f_title">
@@ -139,6 +139,9 @@ export default {
     this.getCap()
   },
   methods: {
+    iphon () {
+      this.$parent.showAndHide()
+    },
     chePhone () {
       // let obj = {
       //   token: this.userInfo.token,

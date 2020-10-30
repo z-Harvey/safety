@@ -37,13 +37,14 @@ export default [
 
 
 
-	{ path: '/', component: poliList }, // 保单查询列表
+	{ path: '/poliList', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
 	{ path: '/polialready', component: polialready }, // 保单
 
 
 
-	{ path: '/fromView', component: fromView }, // 主页
+	{ path: '/', component: fromView }, // 主页
+	{ path: "/listView", component: listView },
 	{
 		path: '/fromTable',
 		component: fromTable,
@@ -52,9 +53,5 @@ export default [
 			{ path: '/from2', name: 'from2', component: from2 },
 			{ path: '/from3', name: 'from3', component: from3 }
 		]
-	},
-	{
-		path: "/listView",
-		component: listView
 	}
 ]
