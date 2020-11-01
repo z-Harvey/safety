@@ -51,7 +51,7 @@
     </div>
     <div class="box4">
       <div class="title">线上投保流程</div>
-      <img class="im4" src="@/assets/li2_i4.png" alt="">
+      <img class="im4" src="@/assets/li2_i44.png" alt="">
     </div>
     <div class="box4">
       <div class="title">保险责任</div>
@@ -69,7 +69,7 @@
       <div class="yy"></div>
       <!-- <img class="bg" src="@/assets/jbbbj.png" alt=""> -->
       <div class="textBox">
-        <div class="title" v-text="msgData.title"></div>
+        <div class="title" v-text="msgData.list.explain"></div>
         <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
           <div class="li1" v-text="item.name"></div>
           <div class="li2" v-text="item.intro"></div>

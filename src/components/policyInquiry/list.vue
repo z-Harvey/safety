@@ -57,7 +57,10 @@ export default {
     },
     mounted () {
         document.title = '订单查询'
-        this.init()
+        this.userInfo = JSON.parse(localStorage.userInfo)
+        setTimeout(() => {
+            this.init()
+        }, 1000)
     },
     methods: {
         path(item) {

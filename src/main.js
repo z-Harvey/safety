@@ -13,8 +13,8 @@ import { login } from './api/getApi'
   arr = arr[1].split('&')
   let obj = {}
   arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+  console.log(obj)
   // if (obj.code == undefined) return
-  alert('code', obj.code)
   login({ code: obj.code }).then(res => {
       if (res.data.code == 200) {
         // getConfig({
@@ -26,8 +26,9 @@ import { login } from './api/getApi'
         // })
         localStorage.userInfo = JSON.stringify(res.data.ret)
         return
+      } else {
+        alert(res.data.message)
       }
-      alert(res.data.message)
   })
 })()
 
@@ -43,6 +44,9 @@ Vue.prototype.$wx = wx
 Vue.prototype.compressImg = compressImg
 new Vue({
   router,
+  mounted () {
+    console.log(1111)
+  },
   render: h => h(App)
 }).$mount('#app')
 

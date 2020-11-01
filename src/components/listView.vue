@@ -6,7 +6,7 @@
       <img class="box1Img" src="@/assets/box1_bg.png" alt="">
       <div class="lef">
         <div class="title">
-          <span v-text="msgData.name"></span>
+          <span v-text="msgData.title"></span>
           <div class="s"></div>
           <div class="zzz" v-text="insType">成功保</div>
         </div>

@@ -1,4 +1,4 @@
-// 人保-基础保
+// 平安-基础保
 <template>
   <div class="listView">
     <div class="by">2年内至少完成1次取卵3次移植失败即可赔付68888元</div>
@@ -66,7 +66,7 @@
       <div class="yy"></div>
       <!-- <img class="bg" src="@/assets/jbbbj.png" alt=""> -->
       <div class="textBox">
-        <div class="title" v-text="msgData.title"></div>
+        <div class="title" v-text="msgData.list.explain"></div>
         <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
           <div class="li1" v-text="item.name"></div>
           <div class="li2" v-text="item.intro"></div>
@@ -421,6 +421,7 @@ export default {
         top: 0;
         left: 0;
         text-align: left;
+        width: 100%;
         .title{
           padding: 9px 0 0 12px;
           height: 45px;
@@ -447,7 +448,7 @@ export default {
         img{
           position: absolute;
           top: 110px;
-          right:47px;
+          right: 69px;
           width: 77.37px;
           height: 95.29px;
         }

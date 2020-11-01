@@ -20,7 +20,7 @@
         <div class="title">一、服务对象</div>
         <div class="cont">
           女方年龄在20-37周岁(含37周岁)的试管婴儿夫妇<br/>
-          <div class="kkkkk"></div>● 符合辅助生殖适应证、排除禁忌证<br/>
+          <div class="kkkkk"></div>● 符合辅助生殖适应症、排除禁忌症<br/>
           <div class="kkkkk"></div>● 女方卵巢功能及子宫腔情况基本正常，由主治医生具体评估<br/>
           <div class="kkkkk"></div>● 男方未患有非梗阻性无精子症或严重精子畸形症
         </div>
@@ -39,7 +39,7 @@
     <div class="box5">
       <div class="yy"></div>
       <div class="textBox">
-        <div class="title" v-text="msgData.title"></div>
+        <div class="title" v-text="msgData.list.explain"></div>
         <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
           <div class="li1" v-text="item.name"></div>
           <div class="li2" v-text="item.intro"></div>

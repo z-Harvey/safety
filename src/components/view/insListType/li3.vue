@@ -20,7 +20,7 @@
         <div class="title">一、服务对象</div>
         <div class="cont">
           女方年龄在20-37周岁(含37周岁)的试管婴儿夫妇<br/>
-          <div class="kkkkk"></div>● 符合辅助生殖适应证、排除禁忌证<br/>
+          <div class="kkkkk"></div>● 符合辅助生殖适应症、排除禁忌症<br/>
           <div class="kkkkk"></div>● 女方卵巢功能及子宫腔情况基本正常，由主治医生具体评估<br/>
           <div class="kkkkk"></div>● 男方未患有非梗阻性无精子症或严重精子畸形症
         </div>
@@ -29,7 +29,7 @@
         <div class="title">三、申请流程</div>
         <div class="cont">夫妻双方备齐证件(身份证、结婚证)来院进行全套检查，主治医生评估患者身体，之后为符合条件的患者建立档案，具体办理流程详询客服人员。</div>
         <div class="title">四、理赔范围</div>
-        <div class="cont">在指定医院1年+365天保险责任期完成3次试管婴儿胚胎移植，移植结果均为临床妊娠阴性，由医院协助患者向中国人保提供理赔材料，并由中国人保收到完整材料后进行审核，符合赔付条件的，中国人保将签约计划约定的保险金额68888元赔付给患者。</div>
+        <div class="cont">在指定医院2年内完成至少1次取卵和3次试管婴儿胚胎移植，移植结果均为临床妊娠阴性，由医院协助患者向平安保险提供理赔材料，并由平安保险收到完整材料后进行审核，符合赔付条件的，平安保险将按照签约计划约定的保险金额赔付68888元给患者。</div>
       </div>
     </div>
     <div class="box4">
@@ -39,7 +39,7 @@
     <div class="box5">
       <div class="yy"></div>
       <div class="textBox">
-        <div class="title" v-text="msgData.title"></div>
+        <div class="title" v-text="msgData.list.explain"></div>
         <div class="ul" v-for="(item, index) in msgData.list.intro" :key="index">
           <div class="li1" v-text="item.name"></div>
           <div class="li2" v-text="item.intro"></div>

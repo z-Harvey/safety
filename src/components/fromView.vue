@@ -94,8 +94,12 @@ export default {
         // })
 
 
+        this.userInfo = JSON.parse(localStorage.userInfo)
         document.title = '生殖险 | 试管婴儿'
-        this.getProvince('init')
+        setTimeout(() => {
+            
+            this.getProvince('init')
+        }, 1000)
     },
     watch: {
         province (ne) { if(ne == '全部') this.init({}) }
