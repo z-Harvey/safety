@@ -20,7 +20,7 @@
         <div class="title">一、服务对象</div>
         <div class="cont">
           女方年龄在20-37周岁(含37周岁)的试管婴儿夫妇<br/>
-          <div class="kkkkk"></div>● 符合辅助生殖适应症、排除禁忌症<br/>
+          <div class="kkkkk"></div>● 符合辅助生殖适应证、排除禁忌证<br/>
           <div class="kkkkk"></div>● 女方卵巢功能及子宫腔情况基本正常，由主治医生具体评估<br/>
           <div class="kkkkk"></div>● 男方未患有非梗阻性无精子症或严重精子畸形症
         </div>
@@ -138,7 +138,8 @@ export default {
               out_product_id: this.msgData.list.out_product_id,
               type: this.msgData.list.type,
               phonenum: this.phonenum,
-              titleName: this.msgData.title
+              titleName: this.msgData.title,
+              name: this.$parent.name
             }
           }
         )
@@ -153,7 +154,8 @@ export default {
               out_product_id: this.msgData.list.out_product_id,
               type: this.msgData.list.type,
               phonenum: this.userInfo.phonenum,
-              titleName: this.msgData.title
+              titleName: this.msgData.title,
+              name: this.$parent.name
             }
           }
         )

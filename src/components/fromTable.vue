@@ -3,7 +3,7 @@
     <div class="fromTable">
         <div class="tag">*为审核一次性通过，请务必提交正确的信息和清晰的资料</div>
         <router-view></router-view>
-        <cust ref="cust"/>
+        <cust ref="cust" :name="name"/>
     </div>
 </template>
 
@@ -16,11 +16,13 @@ export default {
         return {
             fromData: {},
             from1Data: {},
-            id: ''
+            id: '',
+            name: ''
         }
     },
     components: { cust },
     mounted () {
+        this.name = this.$route.query.name
         document.title = '投保基本信息'
     },
     methods: {

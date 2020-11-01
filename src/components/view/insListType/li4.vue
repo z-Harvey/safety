@@ -165,7 +165,8 @@ export default {
               out_product_id: this.msgData.list.out_product_id,
               type: this.msgData.list.type,
               phonenum: this.phonenum,
-              titleName: this.msgData.title
+              titleName: this.msgData.title,
+              name: this.$parent.name
             }
           }
         )
@@ -180,7 +181,8 @@ export default {
               out_product_id: this.msgData.list.out_product_id,
               type: this.msgData.list.type,
               phonenum: this.userInfo.phonenum,
-              titleName: this.msgData.title
+              titleName: this.msgData.title,
+              name: this.$parent.name
             }
           }
         )

@@ -50,7 +50,7 @@
     <li3 v-if="name == '中国平安产品' && act == 1" :msgData="cliData"/>
     <!-- 平安 -->
     <li4 v-if="name == '中国平安产品' && act == 0" :msgData="cliData"/>
-    <cust ref="cust"/>
+    <cust ref="cust" :name="name"/>
   </div>
 </template>
 
@@ -98,7 +98,7 @@ export default {
       this.act = n
       this.insType = ite.name
       this.cliData = {
-        title: `${this.msgData.name}-${ite.name}`,
+        title: `${this.msgData.title}-${ite.name}`,
         list: ite
       }
     },

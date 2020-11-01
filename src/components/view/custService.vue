@@ -1,10 +1,10 @@
 <template>
     <div class="cust" v-if="isShow" @click.stop="isShow = false">
-        <div @click.stop>
+        <div @click.stop v-if="name == '中国人保产品'">
             <img src="@/assets/erwei_1.jpg" alt="">
             <span>人保负责人微信</span>
         </div>
-        <div @click.stop>
+        <div @click.stop v-else>
             <img src="@/assets/erwei_2.jpg" alt="">
             <span>平安负责人微信</span>
         </div>
@@ -14,6 +14,7 @@
 <script>
 export default {
     name: 'cust',
+    props: [ 'name' ],
     data () {
         return {
             isShow: false

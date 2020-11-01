@@ -34,7 +34,7 @@
                 <div class="y" v-if="msg.pass_flag == 1">
                     <div class="li" @click="jump(msg.is_show, msg.pay_url)">
                         <span class="lef">去投保：</span>
-                        <span :class="msg.is_show? 'rig rigUrl': 'rig'" v-text="msg.is_show? msg.pay_url: '请前往医院投保'"></span>
+                        <span :class="msg.is_show? 'rig rigUrl': 'rig'" v-text="msg.is_show? '点此投保': '请前往医院投保'"></span>
                     </div>
                 </div>
                 <!-- <div class="y">
