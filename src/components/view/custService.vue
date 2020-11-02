@@ -2,11 +2,11 @@
     <div class="cust" v-if="isShow" @click.stop="isShow = false">
         <div @click.stop v-if="name == '中国人保产品'">
             <img src="@/assets/erwei_1.jpg" alt="">
-            <span>人保负责人微信</span>
+            <span>人保客服微信</span>
         </div>
         <div @click.stop v-else>
             <img src="@/assets/erwei_2.jpg" alt="">
-            <span>平安负责人微信</span>
+            <span>平安客服微信</span>
         </div>
     </div>
 </template>
@@ -34,7 +34,9 @@ export default {
     text-align: center;
     color: #fff;
     padding-top: 50px;
+    display: flex;
     div{
+        align-self: center;
         width: 60%;
         margin: 0 auto 50px;
     }

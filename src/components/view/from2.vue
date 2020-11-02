@@ -38,7 +38,10 @@
             <div class="from3b">等待审核结果</div>
         </div>
         <div class="showImg" v-if="showImg !== ''" @click.stop="showImg = ''">
-            <img :src="showImg" @click.stop="">
+            <div class="imgBox">
+                <img :src="showImg" @click.stop="">
+            </div>
+            <div class="closeImg" @click.stop="showImg = ''">点击此处缩小图片</div>
         </div>
         <div class="btn" @click="subMit">下一步</div>
         <a class="gdzx" @click="iphon">
@@ -81,7 +84,7 @@ export default {
         iphon () {
         this.$parent.showAndHide()
         },
-        edit () { this.$router.push({ path: '/fromTable' }) },
+        edit () { this.$router.go(-1) },
         subMit () {
             if (!this.btn) return
             let arr = this.callList.filter(item => item.indexPic == '')
@@ -283,9 +286,31 @@ export default {
         left: 0;
         z-index: 10;
         display: flex;
-        img{
+        .imgBox{
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            align-self: center;
+            height: calc(100% - 100px);
+            overflow: auto;
+            display: flex;
+            img{
+                align-self: center;
+                width: 100%;
+                align-self: center;
+            }
+        }
+        .closeImg{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #000;
+            color: #fff;
+            z-index: 10;
+            text-align: center;
+            line-height: 100px;
         }
     }
     .btn{

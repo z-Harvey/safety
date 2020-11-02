@@ -8,14 +8,15 @@ import { compressImg } from './util/pubApi'
 import { login } from './api/getApi'
 
 (() => {
-  let arr = window.location.href.split('?')
-  // if (arr.length <= 1) return
-  arr = arr[1].split('&')
-  let obj = {}
-  arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-  console.log(obj)
-  // if (obj.code == undefined) return
-  login({ code: obj.code }).then(res => {
+  if (localStorage.userInfo == undefined) {
+    let arr = window.location.href.split('?')
+    // if (arr.length <= 1) return
+    arr = arr[1].split('&')
+    let obj = {}
+    arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
+    console.log(obj)
+    // if (obj.code == undefined) return
+    login({ code: obj.code }).then(res => {
       if (res.data.code == 200) {
         // getConfig({
         //   token: res.data.ret.token,
@@ -29,7 +30,8 @@ import { login } from './api/getApi'
       } else {
         alert(res.data.message)
       }
-  })
+    })
+  }
 })()
 
 

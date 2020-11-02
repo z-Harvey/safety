@@ -63,7 +63,7 @@
     </div>
     <div class="box4">
       <div class="title">保险Q&A</div>
-      <img class="im7" src="@/assets/li2_i10.png" alt="">
+      <img class="im7" src="@/assets/li2_i100.png" alt="">
     </div>
     <div class="box5">
       <div class="yy"></div>
