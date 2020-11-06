@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <img class="bomTag" src="@/assets/li1_i6.png" alt="">
+    <img class="bomTag" src="@/assets/li1_i6s.png" alt="">
     <div class="btn" @click="path()">投保审核</div>
     <a class="ph" @click="iphon">
         <img src="@/assets/from_gdzx.png" alt="">
