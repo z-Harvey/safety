@@ -28,7 +28,7 @@ export default [
 	{ path: '/introduce', component: introduce }, // 静态页一
 	{ path: '/introduce2', component: introduce2 }, // 静态页二
 
-	{ path: '/websitePage', component: websitePage }, // 官网
+	{ path: '/', component: websitePage }, // 官网
 
 
 	{ path: '/BusService', component: BusService }, // 商务服务
@@ -43,7 +43,7 @@ export default [
 
 
 
-	{ path: '/', component: fromView }, // 主页
+	{ path: '/fromView', component: fromView }, // 主页
 	{ path: "/listView", component: listView },
 	{
 		path: '/fromTable',
