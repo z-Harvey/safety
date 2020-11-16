@@ -2,49 +2,49 @@
     <div class="from1">
         <div class="lefDD">
             <div class="y q"></div>
-            <div :class="fromData.is_self_insure == 1? 'g g1': 'g'"></div>
+            <div :class="VfromData.is_self_insure == 1? 'g g1': 'g'"></div>
             <div class="y"></div>
             <div class="g sg"></div>
             <div class="y"></div>
         </div>
         <div class="rig">
             <div class="from1">
-                <img :class="fromData.is_self_insure == 1? 'bga': 'bg'" src="@/assets/from1_kp.png" alt="">
+                <img :class="VfromData.is_self_insure == 1? 'bga': 'bg'" src="@/assets/from1_kp.png" alt="">
                 <div class="textBox">
                     <div class="tit">填写基本信息</div>
                     <div class="li">
                         <div class="title">投保人：</div>
-                        <input type="text" v-model="fromData.insure_name">
+                        <input type="text" v-model="VfromData.insure_name">
                     </div>
                     <div class="li">
                         <div class="title">证件号码：</div>
-                        <input type="text" v-model="fromData.insure_card">
+                        <input type="text" v-model="VfromData.insure_card">
                     </div>
                     <div class="li">
                         <div class="title">是否为本人投保：</div>
-                        <div class="rodi r" @click="fromData.is_self_insure = 0">
-                            <img v-if="fromData.is_self_insure == 0" src="@/assets/from_xz.png" alt="">
+                        <div class="rodi r" @click="VfromData.is_self_insure = 0">
+                            <img v-if="VfromData.is_self_insure == 0" src="@/assets/from_xz.png" alt="">
                             <img v-else src="@/assets/from_wxz.png" alt="">
                             <span>是</span>
                         </div>
-                        <div class="rodi" @click="fromData.is_self_insure = 1">
-                            <img v-if="fromData.is_self_insure == 1" src="@/assets/from_xz.png" alt="">
+                        <div class="rodi" @click="VfromData.is_self_insure = 1">
+                            <img v-if="VfromData.is_self_insure == 1" src="@/assets/from_xz.png" alt="">
                             <img v-else src="@/assets/from_wxz.png" alt="">
                             <span>否</span>
                         </div>
                     </div>
-                    <div v-if="fromData.is_self_insure == 1" style="padding-left: 5%;">
+                    <div v-if="VfromData.is_self_insure == 1" style="padding-left: 5%;">
                         <div class="li">
                             <div class="title">被投保人：</div>
-                            <input type="text" v-model="fromData.give_insure_name">
+                            <input type="text" v-model="VfromData.give_insure_name">
                         </div>
                         <div class="li">
                             <div class="title">身份证号码：</div>
-                            <input type="text" v-model="fromData.give_insure_card">
+                            <input type="text" v-model="VfromData.give_insure_card">
                         </div>
                         <div class="li">
                             <div class="title">手机号码：</div>
-                            <input type="text" v-model="fromData.give_insure_phonenum">
+                            <input type="text" v-model="VfromData.give_insure_phonenum">
                         </div>
                     </div>
                 </div>
@@ -61,44 +61,32 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { apply } from '../../api/getApi'
 
 export default {
     name: 'from1',
+	computed: { ...mapState(['VfromData', 'imgList']) },
     data () {
         return {
-            btn: true,
-            fromData: {
-                is_self_insure: 0,
-                product_name: '',
-                insure_name: '', // 投保人姓名
-                insure_card: '', // 投保人身份证号码
-                insure_phonenum: '', // 投保人手机号
-                give_insure_name: '', // 被保人名称
-                give_insure_card: '', // 被保人身份证号
-                give_insure_phonenum: '' // 被保人手机号
-            }
+            btn: true
         }
     },
-    mounted () {
-        this.fromData.insure_phonenum = this.$route.query.phonenum
-        this.fromData.product_name = this.$route.query.titleName
-    },
     methods: {
-        iphon () {
-        this.$parent.showAndHide()
-        },
+		...mapMutations(['cheImgList']),
+        iphon () { this.$parent.showAndHide() },
         go() {
+            console.log(this.VfromData)
             if (!this.btn) return
-            if (this.fromData.insure_name === '') return this.showToasts('请填写投保人姓名')
-            if (this.fromData.insure_card === '') return this.showToasts('请填写投保人身份证号码')
-            if (this.fromData.is_self_insure === 1) {
-                if (this.fromData.give_insure_name === '') return this.showToasts('请填写被投保人姓名')
-                if (this.fromData.give_insure_card === '') return this.showToasts('请填写被保人身份证号')
-                if (this.fromData.give_insure_phonenum === '') return this.showToasts('请填写被保人手机号')
+            if (this.VfromData.insure_name === '') return this.showToasts('请填写投保人姓名')
+            if (this.VfromData.insure_card === '') return this.showToasts('请填写投保人身份证号码')
+            if (this.VfromData.is_self_insure === 1) {
+                if (this.VfromData.give_insure_name === '') return this.showToasts('请填写被投保人姓名')
+                if (this.VfromData.give_insure_card === '') return this.showToasts('请填写被保人身份证号')
+                if (this.VfromData.give_insure_phonenum === '') return this.showToasts('请填写被保人手机号')
             }
-            this.$parent.fromData = this.fromData
-            let obj = JSON.parse(JSON.stringify(this.fromData))
+            this.$parent.VfromData = this.VfromData
+            let obj = JSON.parse(JSON.stringify(this.VfromData))
             obj['token'] = JSON.parse(localStorage.userInfo).token
             obj['out_product_id'] = this.$route.query.out_product_id
             obj['type'] = this.$route.query.type
@@ -110,6 +98,7 @@ export default {
                 res.data.ret.nullValueList.map(p1 => {
                     p1['indexPic'] = ''
                 })
+                this.cheImgList(res.data.ret.nullValueList)
                 this.$parent.from1Data = res.data.ret.nullValueList
                 this.$parent.id = res.data.ret.id
                 this.$router.push({ path: '/from2' })

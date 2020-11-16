@@ -22,7 +22,7 @@
                 <img class="bg" src="@/assets/from2_kp1.png" alt="">
                 <div class="textBox">
                     <div class="title">上传病例资料</div>
-                    <div class="li" v-for="(item, index) in callList" :key="index">
+                    <div class="li" v-for="(item, index) in imgList" :key="index">
                         <span v-text="item.label + '：'"></span>
                         <div class="imgBox" v-if="item.indexPic !== ''">
                             <img class="img" src="@/assets/from2_img.png" alt="" @click="showImg = item.indexPic">
@@ -52,48 +52,40 @@
 </template>
 
 <script>
-import { upFileds, getToken, apply, uploadImg } from '../../api/getApi'
+import { mapState } from 'vuex'
+
+import { upFileds, getToken, uploadImg } from '../../api/getApi'
 
 export default {
     name: 'from2',
+	computed: { ...mapState(['imgList']) },
     data () {
         return {
             btn: true,
             radio: 1,
             showImg: '',
-            userInfo: {},
-            imgData: {
-                AMH: '',
-                FSH: '',
-                AFC: '',
-                MenSemenReport: '',
-                menChromosomeReport: '',
-                WomenChromosomeReport: '',
-                IDCardFront: '',
-                IDCardBack: ''
-            },
-            callList: []
+            userInfo: {}
         }
     },
     created () {
         this.userInfo = JSON.parse(localStorage.userInfo)
-        this.callList = this.$parent.from1Data
         getToken({ token: '' }).then(res => { this.token = res.data.ret })
     },
+    mounted () {
+        console.log(this.imgList)
+    },
     methods: {
-        iphon () {
-        this.$parent.showAndHide()
-        },
+        iphon () { this.$parent.showAndHide() },
         edit () { this.$router.go(-1) },
         subMit () {
             if (!this.btn) return
-            let arr = this.callList.filter(item => item.indexPic == '')
+            let arr = this.imgList.filter(item => item.indexPic == '')
             console.log(arr)
             if (arr.length !== 0) return this.showToasts(`请上传   ${arr[0].label}`)
             let obj = {
                 token: JSON.parse(localStorage.userInfo).token,
                 id: this.$parent.id,
-                upload_json: this.callList
+                upload_json: this.imgList
             }
             this.btn = false
             uploadImg(obj).then(res => {

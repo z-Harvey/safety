@@ -131,8 +131,8 @@ export default {
   },
   mounted () {
     this.userInfo = JSON.parse(localStorage.userInfo)
-    this.$refs.toast.show({ title: 'loading...' })
-    this.getCap()
+    // this.$refs.toast.show({ title: 'loading...' })
+    // this.getCap()
   },
   methods: {
     chePhone () {

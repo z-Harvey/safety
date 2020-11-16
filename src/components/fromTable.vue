@@ -15,7 +15,6 @@ export default {
     data () {
         return {
             fromData: {},
-            from1Data: {},
             id: '',
             name: ''
         }

@@ -86,11 +86,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getCaptcha, getSend, checkPhonenum } from '../../../api/getApi'
 
 export default {
   name: 'listView',
   props: [ 'msgData' ],
+	computed: { ...mapState(['VfromData']) },
   data () {
     return {
       codeText: '发送验证码',
@@ -105,8 +107,8 @@ export default {
   },
   mounted () {
     this.userInfo = JSON.parse(localStorage.userInfo)
-    this.$refs.toast.show({ title: 'loading...' })
-    this.getCap()
+    // this.$refs.toast.show({ title: 'loading...' })
+    // this.getCap()
   },
   methods: {
     iphon () {
@@ -130,6 +132,8 @@ export default {
       if (this.code.length !== 6) return this.showToasts('请输入六位验证码')
       checkPhonenum(obj).then(res => {
         if (res.data.code !== 200) return this.showToasts( res.data.message )
+        this.VfromData.insure_phonenum = this.userInfo.phonenum
+        this.VfromData.product_name = this.msgData.title
         this.$router.push(
           {
             path: '/fromTable',
@@ -146,6 +150,8 @@ export default {
     },
     path () {
       if (this.userInfo.phonenum == null || this.userInfo.phonenum == '') return this.isPhone = true
+      this.VfromData.insure_phonenum = this.userInfo.phonenum
+      this.VfromData.product_name = this.msgData.title
       this.$router.push(
           {
             path: '/fromTable',

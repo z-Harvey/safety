@@ -1,38 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router/index'
+import router from './router/permission'
 import wx from 'weixin-js-sdk'
-// import lrz from 'lrz'
+import store from './vuex/store'
+
 import { compressImg } from './util/pubApi'
-
-import { login } from './api/getApi'
-
-(() => {
-  if (localStorage.userInfo == undefined) {
-    let arr = window.location.href.split('?')
-    // if (arr.length <= 1) return
-    arr = arr[1].split('&')
-    let obj = {}
-    arr.map(p1 => { obj[p1.split('=')[0]] = p1.split('=')[1] })
-    console.log(obj)
-    // if (obj.code == undefined) return
-    login({ code: obj.code }).then(res => {
-      if (res.data.code == 200) {
-        // getConfig({
-        //   token: res.data.ret.token,
-        //   url: 'http://ywdh5.programdoglovelaugh.top',
-        //   jsApiList: 'updateAppMessageShareData,updateTimelineShareData,scanQRCode,onMenuShareAppMessage,onMenuShareTimeline,chooseWXPay'
-        // }).then(ces => {
-        //   console.log('ces', ces)
-        // })
-        localStorage.userInfo = JSON.stringify(res.data.ret)
-        return
-      } else {
-        alert(res.data.message)
-      }
-    })
-  }
-})()
 
 
 import showToast from './components/assembly/showToast.vue'
@@ -46,9 +18,7 @@ Vue.prototype.$wx = wx
 Vue.prototype.compressImg = compressImg
 new Vue({
   router,
-  mounted () {
-    console.log(1111)
-  },
+  store,
   render: h => h(App)
 }).$mount('#app')
 

@@ -50,7 +50,7 @@ export default {
         }
     },
     watch: {
-        nav(ne, el) {
+        nav(ne) {
             if (ne == 2) return this.$router.push({ path: '/polialready' })
             this.init()
         }
@@ -58,9 +58,7 @@ export default {
     mounted () {
         document.title = '订单查询'
         this.userInfo = JSON.parse(localStorage.userInfo)
-        setTimeout(() => {
-            this.init()
-        }, 1000)
+        this.init()
     },
     methods: {
         path(item) {

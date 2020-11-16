@@ -31,7 +31,7 @@ export default [
 	{ path: '/websitePage', component: websitePage }, // 官网
 
 
-	{ path: '/', component: BusService }, // 商务服务
+	{ path: '/BusService', component: BusService }, // 商务服务
 	{ path: '/busFrom1', component: busFrom1 }, // 商务服务
 	{ path: '/busFrom2', component: busFrom2 }, // 商务服务
 
@@ -43,7 +43,7 @@ export default [
 
 
 
-	{ path: '/fromView', component: fromView }, // 主页
+	{ path: '/', component: fromView }, // 主页
 	{ path: "/listView", component: listView },
 	{
 		path: '/fromTable',
