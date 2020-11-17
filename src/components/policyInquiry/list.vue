@@ -4,7 +4,7 @@
             <div class="cli" @click="nav = ''">全部<div v-show="nav === ''" class="s"></div></div>
             <div class="cli" @click="nav = 0">核保中<div v-show="nav === 0" class="s"></div></div>
             <div class="cli" @click="nav = 1">已核保<div v-show="nav === 1" class="s"></div></div>
-            <div class="cli" @click="nav = 2">购买保险<div v-show="nav === 2" class="s"></div></div>
+            <!-- <div class="cli" @click="nav = 2">购买保险<div v-show="nav === 2" class="s"></div></div> -->
         </div>
         <div class="dnav"></div>
         <div class="forList" v-if="forList.length > 0">
