@@ -31,13 +31,13 @@ export default [
 	{ path: '/websitePage', component: websitePage }, // 官网
 
 
-	{ path: '/BusService', component: BusService }, // 商务服务
+	{ path: '/', component: BusService }, // 商务服务
 	{ path: '/busFrom1', component: busFrom1 }, // 商务服务
 	{ path: '/busFrom2', component: busFrom2 }, // 商务服务
 
 
 
-	{ path: '/', component: poliList }, // 保单查询列表
+	{ path: '/poliList', component: poliList }, // 保单查询列表
 	{ path: '/poliInfo', component: poliInfo }, // 保单查询详情
 	{ path: '/polialready', component: polialready }, // 保单
 
