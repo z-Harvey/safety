@@ -40,7 +40,12 @@
                 </div>
                 <div class="tag" v-text="item.title"></div>
                 <div :class="item.products.length > 1? 'btnBox': 'btnBox btnBox1'">
-                    <div class="btn" v-for="(ite, ind) in item.products" :key="ind" v-text="ite.name + '>'" @click="path(ite, ite)"></div>
+                    <div
+                        v-for="(ite, ind) in item.products"
+                        :key="ind"
+                        :class="ite.is_show == 1? 'btn': 'noCli btn'"
+                        v-text="ite.is_show == 1? ite.name + '>': '敬请期待'"
+                        @click="path(ite, ite)"></div>
                 </div>
             </div>
         </div>
@@ -177,12 +182,14 @@ export default {
         },
         path (item) {
             console.log(item)
+            if (item.is_show == 0) return
             this.$router.push({
                 path: '/listView',
                 query: {
                     name: item.name,
                     id: item.id,
-                    title: `${item.name}-${item.title}`
+                    title: `${item.name}-${item.title}`,
+                    p_type: item.p_type
                 }
             })
         },
@@ -342,7 +349,10 @@ export default {
                     color: #FEFEFE;
                     letter-spacing: 1px;
                     text-align: center;
-
+                }
+                .noCli{
+                    background: linear-gradient(180deg, #686868 0%, #535353 100%);
+                    box-shadow: 0px 3px 6px #969696;
                 }
             }
             .btnBox1{ .btn{ margin: 0 auto; } }

@@ -35,7 +35,7 @@
       </div>
       <div class="rig">
         <div class="l1">
-          <img v-if="name == '中国人保产品'" class="img1" src="@/assets/plcc.png" alt="">
+          <img v-if="p_type == '中国人保产品'" class="img1" src="@/assets/plcc.png" alt="">
           <img v-else class="img1" src="@/assets/timg.png" alt="">
           <div class="s"></div>
           <img class="img2" src="@/assets/yiweidu.png" alt="">
@@ -44,12 +44,12 @@
       </div>
     </div>
     <!-- <router-view></router-view> -->
-    <li1 v-if="name == '中国人保产品' && act == 1" :msgData="cliData"/>
-    <li2 v-if="name == '中国人保产品' && act == 0" :msgData="cliData"/>
+    <li1 v-if="p_type == 0 && act == 1" :msgData="cliData"/>
+    <li2 v-if="p_type == 0 && act == 0" :msgData="cliData"/>
     <!-- 平安基本 -->
-    <li3 v-if="name == '中国平安产品' && act == 1" :msgData="cliData"/>
+    <li3 v-if="p_type == 1 && act == 1" :msgData="cliData"/>
     <!-- 平安 -->
-    <li4 v-if="name == '中国平安产品' && act == 0" :msgData="cliData"/>
+    <li4 v-if="p_type == 1 && act == 0" :msgData="cliData"/>
     <cust ref="cust" :name="name"/>
   </div>
 </template>
@@ -79,7 +79,8 @@ export default {
         title: '',
         list: []
       },
-      insType: ''
+      insType: '',
+      p_type: 0
     }
   },
   components: { li1, li2, li3, li4, cust },
@@ -88,6 +89,7 @@ export default {
     this.userInfo = JSON.parse(localStorage.userInfo)
     this.id = this.$route.query.id
     this.name = this.$route.query.name
+    this.p_type = this.$route.query.p_type
     this.init()
   },
   methods: {

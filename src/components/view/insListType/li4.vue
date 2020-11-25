@@ -166,7 +166,8 @@ export default {
               type: this.msgData.list.type,
               phonenum: this.phonenum,
               titleName: this.msgData.title,
-              name: this.$parent.name
+              name: this.$parent.name,
+              id: this.$parent.id
             }
           }
         )
@@ -182,7 +183,8 @@ export default {
               type: this.msgData.list.type,
               phonenum: this.userInfo.phonenum,
               titleName: this.msgData.title,
-              name: this.$parent.name
+              name: this.$parent.name,
+              id: this.$parent.id
             }
           }
         )

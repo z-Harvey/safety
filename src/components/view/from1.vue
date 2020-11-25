@@ -90,6 +90,7 @@ export default {
             obj['token'] = JSON.parse(localStorage.userInfo).token
             obj['out_product_id'] = this.$route.query.out_product_id
             obj['type'] = this.$route.query.type
+            obj['product_id'] = this.$route.query.id
             this.btn = false
             apply(obj).then(res => {
                 this.btn = true

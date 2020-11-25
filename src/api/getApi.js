@@ -28,12 +28,12 @@ export function getById (data) {
 /**
  * 申请投保 上传第一表单
  */
-export function apply (data) { return axios.post( `${PATH}/api/insureOrder/apply`, data ) }
+export function apply (data) { return axios.post( `${PATH}/api/insureOrderApply/apply`, data ) }
 
 /**
  * 申请投保 上传第二表单
  */
-export function uploadImg (data) { return axios.post( `${PATH}/api/insureOrder/upload`, data ) }
+export function uploadImg (data) { return axios.post( `${PATH}/api/insureOrderApply/upload`, data ) }
 
 /**
  * 上传图片
