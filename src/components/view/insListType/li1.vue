@@ -132,7 +132,7 @@ export default {
       if (this.code.length !== 6) return this.showToasts('请输入六位验证码')
       checkPhonenum(obj).then(res => {
         if (res.data.code !== 200) return this.showToasts( res.data.message )
-        this.VfromData.insure_phonenum = this.userInfo.phonenum
+        this.VfromData.insure_phonenum = obj.phonenum
         this.VfromData.product_name = this.msgData.title
         this.$router.push(
           {

@@ -89,7 +89,7 @@ export default {
     this.userInfo = JSON.parse(localStorage.userInfo)
     this.id = this.$route.query.id
     this.name = this.$route.query.name
-    this.p_type = this.$route.query.p_type
+    // this.p_type = this.$route.query.p_type
     this.init()
   },
   methods: {
