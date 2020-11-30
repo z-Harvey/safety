@@ -1,23 +1,27 @@
 import router from './index'
+import Vue from 'vue'
+import wx from 'weixin-js-sdk'
 
-import { login } from '../api/getApi'
+Vue.prototype.$wx = wx
+import { login, getConfig } from '../api/getApi'
 
 function getToken (code) {
     return new Promise((resolve, reject) => {
-        if (localStorage.userInfo == undefined) {
-            if (localStorage.code == code) return resolve(true)
+        // if (localStorage.userInfo == undefined) {
+        if (localStorage.code != code) {
+        //     if (localStorage.code == code) return resolve(true)
             login({ code: code }).then(res => {
                 localStorage.code = code
                 if (res.data.code == 200) {
                     localStorage.userInfo = JSON.stringify(res.data.ret)
-                    return resolve(true)
+                    return resolve(res.data.ret)
                 } else {
                     alert(res.data.message)
                     return reject(false)
                 }
             })
         } else {
-            return resolve(true)
+            return resolve(JSON.parse(localStorage.userInfo))
         }
     })
 }
@@ -34,8 +38,28 @@ router.beforeEach((to, from, next) => {
         if (obj.view != undefined) return window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2dbc13fb3d19700&redirect_uri=http://${window.location.host}/index.html&response_type=code&state=${obj.view.slice(0, -2)}&scope=snsapi_base&%23wechat_redirect`
         let toArr = ['fromView', 'poliList']
         if (toArr.indexOf(obj.state.slice(0, -2)) < 0) return next(obj.state.slice(0, -2))
-        getToken(obj.code).then(() => {
-            next(`/${obj.state.slice(0, -2)}`)
+        getToken(obj.code).then(res => {
+            getConfig({
+                token: res.token,
+                url: window.location.href,
+                // url: window.location.origin,
+                jsApiList: 'getLocation'
+            }).then(res => {
+                wx.config({
+                    debug: false,
+                    appId: res.data.ret.appId,
+                    timestamp: res.data.ret.timestamp,
+                    nonceStr: res.data.ret.nonceStr,
+                    signature: res.data.ret.signature,
+                    jsApiList: res.data.ret.jsApiList
+                })
+                wx.ready(() => {
+                    next(`/${obj.state.slice(0, -2)}`)
+                })
+                wx.error(() => {
+                    alert('jdk授权失败')
+                })
+            })
         }, err => {
             console.log(err)
         })

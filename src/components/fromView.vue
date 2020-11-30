@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getListByCon, getAreaByHospital } from '../api/getApi'
+import { getListByCon, getAreaByHospital, getLocation } from '../api/getApi'
 
 export default {
     name: 'fromView',
@@ -97,7 +97,28 @@ export default {
         //         this.scrollText = [1]
         //     }
         // })
-
+        this.$wx.getLocation({
+            type: 'wgs84',
+            success: res => {
+                console.log(res)
+                // if (res.errMsg == 'getLocation:ok') getLocation(res.latitude, res.longitude).then(ges => {
+                //     console.log(ges)
+                // })
+                if (res.errMsg == 'getLocation:ok') {
+                    // let url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${x},${y}&key=KTKBZ-TAELS-74ROC-6HILO-FDD25-PKFD5`
+                    let url = `https://apis.map.qq.com/ws/geocoder/v1/`
+                    this.$jsonp(url, {
+                        key: 'KTKBZ-TAELS-74ROC-6HILO-FDD25-PKFD5',
+                        location: `${x},${y}`,
+                        output: "jsonp"
+                    }).then(res => {
+                        console.log(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
+            }
+        })
 
         this.userInfo = JSON.parse(localStorage.userInfo)
         document.title = '生殖险 | 试管婴儿'

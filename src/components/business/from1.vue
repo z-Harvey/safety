@@ -11,14 +11,14 @@
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>姓名：</div>
                 <div class="inp">
-                    <input type="text" placeholder="请输入姓名">
+                    <input type="text" v-model="name" placeholder="请输入姓名">
                     <img src="@/assets/userIcon.png" alt="">
                 </div>
             </div>
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>手机号：</div>
                 <div class="inp">
-                    <input type="text" placeholder="请输入姓名">
+                    <input type="text" v-model="phonenum" placeholder="请输入姓名">
                     <img src="@/assets/f_i1.png" alt="">
                 </div>
             </div>
@@ -28,45 +28,49 @@
                     <input type="text" placeholder="请输入姓名">
                     <img src="@/assets/f_i3.png" alt="">
                 </div>
-                <div class="codeBtn">发送验证码</div>
+                <div @click="getCode" class="codeBtn" v-text="getc">发送验证码</div>
             </div>
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>类别：</div>
+                <div class="radio" @click="radio = 0">
+                    <img v-if="radio == 0" src="@/assets/from_xz.png">
+                    <img v-else src="@/assets/from_wxz.png">
+                    <div class="tis">医护人员</div>
+                </div>
                 <div class="radio" @click="radio = 1">
                     <img v-if="radio == 1" src="@/assets/from_xz.png">
-                    <img v-else src="@/assets/from_wxz.png">
-                    <div class="tis">专业人员</div>
-                </div>
-                <div class="radio" @click="radio = 2">
-                    <img v-if="radio == 2" src="@/assets/from_xz.png">
                     <img v-else src="@/assets/from_wxz.png">
                     <div class="tis">业务顾问</div>
                 </div>
             </div>
-            <div v-if="radio == 1">
+            <div v-if="radio == 0">
                 <div class="inpBox seleBox">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>所属医院：</div>
                     <div class="select">
-                        <select class="sele">
+                        <!-- <select class="sele">
                             <option value="请选择">请选择</option>
-                        </select>
-                        <img src="@/assets/xj.png" alt="">
+                        </select> -->
+                        <input class="sele" v-model="belong_name" type="text">
+                        <!-- <img src="@/assets/xj.png" alt=""> -->
                     </div>
                 </div>
                 <div class="inpBox seleBox">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>科室：</div>
                     <div class="select">
-                        <select class="sele">
+                        <!-- <select class="sele">
                             <option value="请选择">请选择</option>
-                        </select>
-                        <img src="@/assets/xj.png" alt="">
+                        </select> -->
+                        <input class="sele" v-model="department" type="text">
+                        <!-- <img src="@/assets/xj.png" alt=""> -->
                     </div>
                 </div>
                 <div class="inpBox seleBox">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>角色：</div>
                     <div class="select">
-                        <select class="sele">
+                        <select class="sele" v-model="role">
                             <option value="请选择">请选择</option>
+                            <option value="1">医生</option>
+                            <option value="2">护士</option>
                         </select>
                         <img src="@/assets/xj.png" alt="">
                     </div>
@@ -107,19 +111,50 @@
 </template>
 
 <script>
+import { create } from '../../api/business'
+import { getSend } from '../../api/getApi'
+
 export default {
     name: 'from1',
     data () {
         return {
-            radio: 1
+            radio: 0,
+            name: '',
+            role: 0,
+            phonenum: '',
+            belong_name: '',
+            department: '',
+            userInfo: {},
+            getc: '发送验证码'
         }
     },
     mounted () {
+        this.userInfo = location.userInfo
         document.title = '账号登记'
     },
     methods: {
         path() {
+            create({
+                token: this.userInfo.token,
+                phonenum: this.phonenum,
+                code: '',
+                name: this.name,
+                type: this.radio,
+                belong_name: this.belong_name,
+                department: this.department,
+                role: this.role
+            })
             this.$router.push({ path: '/busFrom2' })
+        },
+        getCode() {
+            if (this.getc != '发送验证码') return
+            let obj = {
+                token: this.userInfo.token,
+                phonenum: this.phonenum
+            }
+            getSend(obj).then(res => {
+                
+            })
         }
     }
 }

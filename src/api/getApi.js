@@ -93,4 +93,12 @@ export function getInsureOrderById (data) {
     return axios.get( `${PATH}/api/insureOrder/getById?${arr.join('&')}`, data )
 }
 
+/**
+ * 获取位置
+ */
+export function getLocation (x, y) {
+    return axios.get( `https://apis.map.qq.com/ws/geocoder/v1/?location=${x},${y}&key=KTKBZ-TAELS-74ROC-6HILO-FDD25-PKFD5` )
+    // return axios.get( `https://apis.map.qq.com/ws/geocoder/v1/?location=${x},${y}` )
+}
+
 

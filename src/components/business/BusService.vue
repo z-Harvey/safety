@@ -26,20 +26,30 @@
 </template>
 
 <script>
+import { getByUserId } from '../../api/business'
 
 export default {
     name: 'BusService',
     data () {
         return {
-            code: ''
+            code: '',
+            userInfo: {}
         }
     },
-    mounted () { document.title = '商务服务' },
+    mounted () {
+        document.title = '商务服务'
+        this.userInfo = JSON.parse(localStorage.userInfo)
+    },
     methods: {
         path () {
             console.log(this.code)
-            if (this.code == 13579) return this.$router.push({ path: '/busFrom1' })
-            alert('验证失败')
+            if (this.code == 13579) {
+                getByUserId({ token: this.userInfo.token }).then(res => {
+                    console.log(res)
+                    if (res.data.ret == '') return this.$router.push({ path: '/busFrom1' })
+                })
+                // this.$router.push({ path: '/busFrom1' })
+            } else {alert('机构码有误')}
         }
     }
 }
