@@ -1,6 +1,6 @@
 <template>
     <div class="BusService">
-        <div class="title">一维渡</div>
+        <!-- <div class="title">一维渡</div>
         <div class="banner">
             <img src="@/assets/bus_banner.png" alt="">
         </div>
@@ -15,7 +15,7 @@
             <img src="@/assets/bus_logo.png" alt="">
             <img src="@/assets/bus_logo.png" alt="">
             <img src="@/assets/bus_logo.png" alt="">
-        </div>
+        </div> -->
         <div class="title">机构码验证进入</div>
         <div class="fromBox">
             <input class="inp" type="text" v-model="code" placeholder="请输入所在机构码">

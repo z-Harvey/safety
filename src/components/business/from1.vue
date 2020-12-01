@@ -25,12 +25,12 @@
             <div class="inpBox">
                 <div class="tit"></div>
                 <div class="inpcode">
-                    <input type="text" v-model="code" placeholder="请输入验证码">
+                    <input type="text" v-model="code" maxlength="6" placeholder="请输入验证码">
                     <img src="@/assets/f_i3.png" alt="">
                 </div>
                 <div @click="getCode" class="codeBtn" v-text="getc">发送验证码</div>
             </div>
-            <div class="inpBox">
+            <div class="inpBox" v-if="type != 'edit'">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>类别：</div>
                 <div class="radio" @click="radio = 0">
                     <img v-if="radio == 0" src="@/assets/from_xz.png">
@@ -64,7 +64,7 @@
                         <!-- <img src="@/assets/xj.png" alt=""> -->
                     </div>
                 </div>
-                <div class="inpBox seleBox">
+                <div class="inpBox seleBox" v-if="type != 'edit'">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>角色：</div>
                     <div class="select">
                         <select class="sele" v-model="role">
@@ -114,13 +114,15 @@
 </template>
 
 <script>
-import { create, getByUserId } from '../../api/business'
+import { create, getByUserId, edit } from '../../api/business'
 import { getSend } from '../../api/getApi'
 
 export default {
     name: 'from1',
     data () {
         return {
+            type: '',
+            id: '',
             radio: 0,
             name: '',
             role: 0,
@@ -134,25 +136,19 @@ export default {
     mounted () {
         this.userInfo = JSON.parse(localStorage.userInfo)
         document.title = '账号登记'
-        if (this.$route.query.type == 'edit') this.init()
+        this.type = this.$route.query.type
+        if (this.type == 'edit') this.init()
     },
     methods: {
-        path() {
-            if (this.name == '') return alert('请填写姓名')
-            if (this.phonenum == '') return alert('请填写手机号码')
-            if (this.code == '') return alert('请填写验证码')
-            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '所属医院': '所属机构'}`)
-            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '科室': '负责机构'}`)
-            if (this.role == 0) return alert('请选择角色')
-            create({
+        subEdit () {
+            edit({
                 token: this.userInfo.token,
+                id: this.id,
+                name: this.name,
                 phonenum: this.phonenum,
                 code: this.code,
-                name: this.name,
-                type: this.radio,
                 belong_name: this.belong_name,
-                department: this.department,
-                role: this.role
+                department: this.department
             }).then(res => {
                 if(res.data.code != 200) return alert('操作失败')
                 this.$router.push({
@@ -162,6 +158,38 @@ export default {
                     }
                 })
             })
+        },
+        path() {
+            if (this.name == '') return alert('请填写姓名')
+            if (this.phonenum == '') return alert('请填写手机号码')
+            if (this.code == '') return alert('请填写验证码')
+            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '所属医院': '所属机构'}`)
+            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '科室': '负责机构'}`)
+            if (this.type == 'edit') return this.subEdit()
+            if (this.role == 0) return alert('请选择角色')
+            if(window.confirm('提交后类别与角色将不可更改')){
+                create({
+                    token: this.userInfo.token,
+                    phonenum: this.phonenum,
+                    code: this.code,
+                    name: this.name,
+                    type: this.radio,
+                    belong_name: this.belong_name,
+                    department: this.department,
+                    role: this.role
+                }).then(res => {
+                    if(res.data.code != 200) return alert('操作失败')
+                    this.$router.push({
+                        path: '/busFrom2',
+                        query: {
+                            erwei: res.data.ret.recommend_code
+                        }
+                    })
+                })
+            }else{
+                 //alert("取消");
+                 return false;
+            }
             // this.$router.push({ path: '/busFrom2' })
         },
         getCode() {
@@ -191,6 +219,8 @@ export default {
                 this.name = res.data.ret.name
                 this.belong_name = res.data.ret.belong_name
                 this.department = res.data.ret.department
+                this.id = res.data.ret.id
+                this.radio = res.data.ret.type
             })
         }
     }
@@ -236,7 +266,6 @@ export default {
             position: absolute;
             top: 53px;
             left: 69px;
-            width: 224px;
             height: 78px;
             font-size: 56px;
             font-family: 苹方-简;
