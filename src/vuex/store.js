@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
+        erwei: '',
 		VfromData: {
             is_self_insure: 0,
             product_name: '',
@@ -19,6 +20,9 @@ const store = new Vuex.Store({
 	},
 	mutations: {
 		cheImgList (state, data) {
+            state.imgList = data
+        },
+		cheErwei (state, data) {
             state.imgList = data
         }
 	}

@@ -3,18 +3,29 @@
         <div class="d1"></div>
         <div class="d2"></div>
         <div class="title">专属推荐码</div>
-        <img src="@/assets/ewm.png" alt="">
+        <img :src="img" alt="">
         <div class="edit" @click="path">修改信息</div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'from2',
+    computed: { ...mapState(['erwei']) },
+    data () {
+        return {
+            img: ''
+        }
+    },
     methods: {
         path() {
-            this.$router.push({ path: '/busFrom1' })
+            this.$router.push({ path: '/busFrom1', query: { type: 'edit' } })
         }
+    },
+    mounted () {
+        console.log(this.$route.query)
+        this.img = this.$route.query.erwei
     }
 }
 </script>

@@ -47,6 +47,13 @@ export default {
                 getByUserId({ token: this.userInfo.token }).then(res => {
                     console.log(res)
                     if (res.data.ret == '') return this.$router.push({ path: '/busFrom1' })
+                    
+                    this.$router.push({
+                        path: '/busFrom2',
+                        query: {
+                            erwei: res.data.ret.recommend_code
+                        }
+                    })
                 })
                 // this.$router.push({ path: '/busFrom1' })
             } else {alert('机构码有误')}

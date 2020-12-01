@@ -102,3 +102,8 @@ export function getLocation (x, y) {
 }
 
 
+
+/**
+ * 获取位置
+ */
+export function getAddress (data) { return axios.post( `${PATH}/api/qqMap/getAddress`, data ) }

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getListByCon, getAreaByHospital, getLocation } from '../api/getApi'
+import { getListByCon, getAreaByHospital, getLocation, getAddress } from '../api/getApi'
 
 export default {
     name: 'fromView',
@@ -105,16 +105,11 @@ export default {
                 //     console.log(ges)
                 // })
                 if (res.errMsg == 'getLocation:ok') {
-                    // let url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${x},${y}&key=KTKBZ-TAELS-74ROC-6HILO-FDD25-PKFD5`
-                    let url = `https://apis.map.qq.com/ws/geocoder/v1/`
-                    this.$jsonp(url, {
-                        key: 'KTKBZ-TAELS-74ROC-6HILO-FDD25-PKFD5',
-                        location: `${x},${y}`,
-                        output: "jsonp"
-                    }).then(res => {
+                    getAddress({ location: `${res.latitude},${res.longitude}` }).then(res => {
                         console.log(res)
-                    }).catch(err => {
-                        console.log(err)
+                        if (res.data.code != 200) return this.getProvince('init')
+                        if (res.data.ret == '') return this.getProvince('init')
+                        this.getProvince(res.data.ret.province)
                     })
                 }
             }
@@ -122,18 +117,21 @@ export default {
 
         this.userInfo = JSON.parse(localStorage.userInfo)
         document.title = '生殖险 | 试管婴儿'
-        this.getProvince('init')
     },
     watch: {
         province (ne) { if(ne == '全部') this.init({}) }
     },
     methods: {
-        getProvince () {
-            getAreaByHospital({
+        getProvince (str) {
+            let obj = {
                 token: this.userInfo.token,
                 type: 0
-            }).then(res => {
+            }
+            getAreaByHospital(obj).then(res => {
+                console.log('第一个', res)
                 this.s1List = res.data.ret
+                console.log(this.s1List.filter(item => item.province == str))
+                if(this.s1List.filter(item => item.province == str).length > 0) this.province = str
                 this.init()
             })
         },

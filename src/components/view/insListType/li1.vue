@@ -86,13 +86,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { getCaptcha, getSend, checkPhonenum } from '../../../api/getApi'
 
 export default {
   name: 'listView',
   props: [ 'msgData' ],
-	computed: { ...mapState(['VfromData']) },
   data () {
     return {
       codeText: '发送验证码',

@@ -18,14 +18,14 @@
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>手机号：</div>
                 <div class="inp">
-                    <input type="text" v-model="phonenum" placeholder="请输入姓名">
+                    <input type="text" v-model="phonenum" placeholder="请输入手机号">
                     <img src="@/assets/f_i1.png" alt="">
                 </div>
             </div>
             <div class="inpBox">
                 <div class="tit"></div>
                 <div class="inpcode">
-                    <input type="text" placeholder="请输入姓名">
+                    <input type="text" v-model="code" placeholder="请输入验证码">
                     <img src="@/assets/f_i3.png" alt="">
                 </div>
                 <div @click="getCode" class="codeBtn" v-text="getc">发送验证码</div>
@@ -68,40 +68,43 @@
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>角色：</div>
                     <div class="select">
                         <select class="sele" v-model="role">
-                            <option value="请选择">请选择</option>
+                            <option value="0">请选择</option>
                             <option value="1">医生</option>
                             <option value="2">护士</option>
                         </select>
                         <img src="@/assets/xj.png" alt="">
                     </div>
                 </div>
-                <div class="inpBox seleBox">
+                <!-- <div class="inpBox seleBox">
                     <div class="tit">职务：</div>
                     <div class="select">
                         <select class="sele">
                             <option value="请选择">请选择</option>
                         </select>
                         <img src="@/assets/xj.png" alt="">
+                        <input class="sele" v-model="department" type="text">
                     </div>
-                </div>
+                </div> -->
             </div>
             <div v-else>
                 <div class="inpBox seleBox">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>所属机构：</div>
                     <div class="select">
-                        <select class="sele">
+                        <!-- <select class="sele">
                             <option value="请选择">请选择</option>
                         </select>
-                        <img src="@/assets/xj.png" alt="">
+                        <img src="@/assets/xj.png" alt=""> -->
+                        <input class="sele" v-model="belong_name" type="text">
                     </div>
                 </div>
                 <div class="inpBox seleBox">
                     <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>负责机构：</div>
                     <div class="select">
-                        <select class="sele">
+                        <!-- <select class="sele">
                             <option value="请选择">请选择</option>
                         </select>
-                        <img src="@/assets/xj.png" alt="">
+                        <img src="@/assets/xj.png" alt=""> -->
+                        <input class="sele" v-model="department" type="text">
                     </div>
                 </div>
             </div>
@@ -111,7 +114,7 @@
 </template>
 
 <script>
-import { create } from '../../api/business'
+import { create, getByUserId } from '../../api/business'
 import { getSend } from '../../api/getApi'
 
 export default {
@@ -129,22 +132,37 @@ export default {
         }
     },
     mounted () {
-        this.userInfo = location.userInfo
+        this.userInfo = JSON.parse(localStorage.userInfo)
         document.title = '账号登记'
+        if (this.$route.query.type == 'edit') this.init()
     },
     methods: {
         path() {
+            if (this.name == '') return alert('请填写姓名')
+            if (this.phonenum == '') return alert('请填写手机号码')
+            if (this.code == '') return alert('请填写验证码')
+            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '所属医院': '所属机构'}`)
+            if (this.belong_name == '') return alert(`请填写${this.radio == 0? '科室': '负责机构'}`)
+            if (this.role == 0) return alert('请选择角色')
             create({
                 token: this.userInfo.token,
                 phonenum: this.phonenum,
-                code: '',
+                code: this.code,
                 name: this.name,
                 type: this.radio,
                 belong_name: this.belong_name,
                 department: this.department,
                 role: this.role
+            }).then(res => {
+                if(res.data.code != 200) return alert('操作失败')
+                this.$router.push({
+                    path: '/busFrom2',
+                    query: {
+                        erwei: res.data.ret.recommend_code
+                    }
+                })
             })
-            this.$router.push({ path: '/busFrom2' })
+            // this.$router.push({ path: '/busFrom2' })
         },
         getCode() {
             if (this.getc != '发送验证码') return
@@ -153,7 +171,26 @@ export default {
                 phonenum: this.phonenum
             }
             getSend(obj).then(res => {
-                
+                if (res.data.code !== 200) return alert(res.data.message)
+                let a = 60
+                this.getc = `${a}S`
+                let b = setInterval(() => {
+                    this.getc = `${--a}S`
+                    if (a == 0) {
+                        clearInterval(b)
+                        this.getc = '发送验证码'
+                    }
+                }, 1000)
+            })
+        },
+        init() {
+            getByUserId({ token: this.userInfo.token }).then(res => {
+                if (res.data.code != 200) return alert(res.data.message)
+                this.phonenum = res.data.ret.phonenum
+                this.role = res.data.ret.role
+                this.name = res.data.ret.name
+                this.belong_name = res.data.ret.belong_name
+                this.department = res.data.ret.department
             })
         }
     }
