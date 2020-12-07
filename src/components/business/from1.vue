@@ -18,7 +18,7 @@
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>手机号：</div>
                 <div class="inp">
-                    <input type="text" v-model="phonenum" placeholder="请输入手机号">
+                    <input type="text" maxlength="11" v-model="phonenum" placeholder="请输入手机号">
                     <img src="@/assets/f_i1.png" alt="">
                 </div>
             </div>
@@ -166,8 +166,8 @@ export default {
             if (this.belong_name == '') return alert(`请填写${this.radio == 0? '所属医院': '所属机构'}`)
             if (this.belong_name == '') return alert(`请填写${this.radio == 0? '科室': '负责机构'}`)
             if (this.type == 'edit') return this.subEdit()
-            if (this.role == 0) return alert('请选择角色')
-            if(window.confirm('提交后类别与角色将不可更改')){
+            if (this.radio == 0 && this.role == 0) return alert('请选择角色')
+            if (window.confirm('提交后类别与角色将不可更改')){
                 create({
                     token: this.userInfo.token,
                     phonenum: this.phonenum,
