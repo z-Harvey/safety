@@ -161,7 +161,10 @@ export default {
         },
         path() {
             if (this.name == '') return alert('请填写姓名')
-            if (this.phonenum == '') return alert('请填写手机号码')
+            if (this.phonenum.length != 11) {
+                if (this.phonenum == '') return alert('请填写手机号码')
+                return alert('请填写正确手机号码')
+            }
             if (this.code == '') return alert('请填写验证码')
             if (this.belong_name == '') return alert(`请填写${this.radio == 0? '所属医院': '所属机构'}`)
             if (this.belong_name == '') return alert(`请填写${this.radio == 0? '科室': '负责机构'}`)
