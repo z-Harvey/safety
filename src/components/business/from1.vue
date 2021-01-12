@@ -5,7 +5,7 @@
             <div class="bg1"></div>
             <div class="bg3"></div>
             <div class="title">账号登记</div>
-            <div class="title2">请确保使用本人微信账号进行手机号绑定</div>
+            <div class="title2">*请确保使用本人微信账号进行手机号绑定*</div>
         </div>
         <div class="fromBox">
             <div class="inpBox">
@@ -18,14 +18,14 @@
             <div class="inpBox">
                 <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>手机号：</div>
                 <div class="inp">
-                    <input type="text" maxlength="11" v-model="phonenum" placeholder="请输入手机号">
+                    <input type="text" maxlength="11" v-model="phonenum" placeholder="请输入手机号码">
                     <img src="@/assets/f_i1.png" alt="">
                 </div>
             </div>
             <div class="inpBox">
                 <div class="tit"></div>
                 <div class="inpcode">
-                    <input type="text" v-model="code" maxlength="6" placeholder="请输入验证码">
+                    <input type="text" v-model="code" maxlength="6" placeholder="请输入短信验证码">
                     <img src="@/assets/f_i3.png" alt="">
                 </div>
                 <div @click="getCode" class="codeBtn" v-text="getc">发送验证码</div>
@@ -35,7 +35,7 @@
                 <div class="radio" @click="radio = 0">
                     <img v-if="radio == 0" src="@/assets/from_xz.png">
                     <img v-else src="@/assets/from_wxz.png">
-                    <div class="tis">医护人员</div>
+                    <div class="tis">专业人员</div>
                 </div>
                 <div class="radio" @click="radio = 1">
                     <img v-if="radio == 1" src="@/assets/from_xz.png">
@@ -50,7 +50,7 @@
                         <!-- <select class="sele">
                             <option value="请选择">请选择</option>
                         </select> -->
-                        <input class="sele" v-model="belong_name" type="text">
+                        <input class="sele" v-model="belong_name" type="text" placeholder="请输入所属医院">
                         <!-- <img src="@/assets/xj.png" alt=""> -->
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <!-- <select class="sele">
                             <option value="请选择">请选择</option>
                         </select> -->
-                        <input class="sele" v-model="department" type="text">
+                        <input class="sele" v-model="department" type="text" placeholder="请输入科室">
                         <!-- <img src="@/assets/xj.png" alt=""> -->
                     </div>
                 </div>
@@ -88,13 +88,13 @@
             </div>
             <div v-else>
                 <div class="inpBox seleBox">
-                    <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>所属机构：</div>
+                    <div class="tit"><span style="color: rgba(254, 164, 107, 1);">*</span>所属公司：</div>
                     <div class="select">
                         <!-- <select class="sele">
                             <option value="请选择">请选择</option>
                         </select>
                         <img src="@/assets/xj.png" alt=""> -->
-                        <input class="sele" v-model="belong_name" type="text">
+                        <input class="sele" v-model="belong_name" type="text" placeholder="请输入所属公司">
                     </div>
                 </div>
                 <div class="inpBox seleBox">
@@ -104,7 +104,7 @@
                             <option value="请选择">请选择</option>
                         </select>
                         <img src="@/assets/xj.png" alt=""> -->
-                        <input class="sele" v-model="department" type="text">
+                        <input class="sele" v-model="department" type="text" placeholder="请输入负责机构">
                     </div>
                 </div>
             </div>
@@ -267,26 +267,31 @@ export default {
         }
         .title{
             position: absolute;
-            top: 53px;
-            left: 69px;
+            top: 86px;
+            left: 0;
+            width: 100%;
+            text-align: center;
             height: 78px;
             font-size: 56px;
             font-family: 苹方-简;
-            font-weight: normal;
+            font-weight: 500;
             line-height: 78px;
             color: #3C84E8;
+
         }
         .title2{
             position: absolute;
-            top: 189px;
-            right: 31px;
-            width: 435px;
-            height: 33px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
             font-size: 24px;
             font-family: 苹方-简;
-            font-weight: normal;
-            line-height: 26px;
-            color: #FDA070;
+            line-height: 50px;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            background: rgba(253, 160, 112, 1);
+            text-align: center;
         }
     }
     .fromBox{

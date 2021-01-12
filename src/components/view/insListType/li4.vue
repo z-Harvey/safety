@@ -52,7 +52,7 @@
       <img class="im4" src="@/assets/li2_i4.png" alt="">
     </div>
     <div class="box4">
-      <div class="title">保险责任</div>
+      <div class="title">保障责任</div>
       <img class="im5" src="@/assets/li33_i3.png" alt="">
     </div>
     <div class="box4">

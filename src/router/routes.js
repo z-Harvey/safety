@@ -8,9 +8,11 @@ import from1 from '../components/view/from1'
 import from2 from '../components/view/from2'
 import from3 from '../components/view/from3'
 
-import BusService from '../components/business/BusService'
+import BusService from '../components/business/BusService' // 商务服务
+import About from '../components/business/About' // 关于我们
 import busFrom1 from '../components/business/from1'
 import busFrom2 from '../components/business/from2'
+import busFrom3 from '../components/business/from3'
 
 import introduce from '../components/static/introduce'
 import introduce2 from '../components/static/introduce2'
@@ -32,8 +34,10 @@ export default [
 
 
 	{ path: '/BusService', component: BusService }, // 商务服务
+	{ path: '/About', component: About }, // 商务服务
 	{ path: '/busFrom1', component: busFrom1 }, // 商务服务
 	{ path: '/busFrom2', component: busFrom2 }, // 商务服务
+	{ path: '/busFrom3', component: busFrom3 }, // 商务服务
 
 
 

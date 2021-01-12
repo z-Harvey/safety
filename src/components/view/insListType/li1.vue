@@ -19,7 +19,7 @@
       <div class="text">
         <div class="title">一、服务对象</div>
         <div class="cont">
-          女方年龄在20-37周岁(含37周岁)的试管婴儿夫妇<br/>
+          女方年龄在20-38周岁(含38周岁)的试管婴儿夫妇<br/>
           <div class="kkkkk"></div>● 符合辅助生殖适应证、排除禁忌证<br/>
           <div class="kkkkk"></div>● 女方卵巢功能及子宫腔情况基本正常，由主治医生具体评估<br/>
           <div class="kkkkk"></div>● 男方未患有非梗阻性无精子症或严重精子畸形症
@@ -86,11 +86,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getCaptcha, getSend, checkPhonenum } from '../../../api/getApi'
 
 export default {
   name: 'listView',
   props: [ 'msgData' ],
+	computed: { ...mapState(['VfromData']) },
   data () {
     return {
       codeText: '发送验证码',

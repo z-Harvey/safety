@@ -4,7 +4,10 @@
         <div class="d2"></div>
         <div class="title">专属推荐码</div>
         <img :src="img" alt="">
-        <div class="edit" @click="path">修改信息</div>
+        <div class="edit">
+            <span @click="path">修改信息</span>
+            <span @click="myList">我的用户</span>
+        </div>
     </div>
 </template>
 
@@ -19,9 +22,8 @@ export default {
         }
     },
     methods: {
-        path() {
-            this.$router.push({ path: '/busFrom1', query: { type: 'edit' } })
-        }
+        path() { this.$router.push({ path: '/busFrom1', query: { type: 'edit' } }) },
+        myList() { this.$router.push({ path: '/busFrom3' }) }
     },
     mounted () {
         console.log(this.$route.query)
@@ -56,6 +58,7 @@ export default {
         position: fixed;
         bottom: 42px;
         right: 31px;
+        z-index: -1;
     }
     .title{
         padding: 149px 0 69px 0;
@@ -71,14 +74,20 @@ export default {
         height: 400px;
     }
     .edit{
-        padding: 151px 0 0 0;
+        padding: 151px 20px 0;
         height: 33px;
-        font-size: 24px;
-        font-family: 苹方-简;
-        font-weight: normal;
-        line-height: 26px;
-        color: #FDA070;
-        text-decoration: underline;
+        width:352px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        span{
+            font-size: 24px;
+            font-family: 苹方-简;
+            font-weight: normal;
+            line-height: 26px;
+            color: #FDA070;
+            text-decoration: underline;
+        }
     }
 }
 </style>

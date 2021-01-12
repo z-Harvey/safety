@@ -15,6 +15,24 @@ export function getByUserId (data) {
 }
 
 /**
+ * 获取关注人
+ */
+export function getUser (data) {
+    let arr = []
+    for (let i in data) { arr.push(`${i}=${data[i]}`) }
+    return axios.get( `${PATH}/api/business/getUser?${arr.join('&')}`, data )
+}
+
+/**
+ * 获取关注人详情
+ */
+export function getListByUserId (data) {
+    let arr = []
+    for (let i in data) { arr.push(`${i}=${data[i]}`) }
+    return axios.get( `${PATH}/api/insureOrder/getListByUserId?${arr.join('&')}`, data )
+}
+
+/**
  * 修改商务服务信息
  */
 export function edit (data) { return axios.post( `${PATH}/api/business/edit`, data ) }
