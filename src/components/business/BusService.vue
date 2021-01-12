@@ -22,9 +22,9 @@
             <img class="btn" @click="path" src="@/assets/bus_button.png" alt="">
         </div>
         <div class="tagBox">推荐码获取方式：1.联系我司区域业务顾问获取；2.联系本平台客服；<br/>（若上述途径无法解决，拨打合作专员电话13386107953）</div> -->
-        <div class="title">输入机构码验证进入</div>
+        <div class="title">输入合作码</div>
         <div class="fromBox">
-            <input class="inp" type="text" v-model="code" placeholder="请输入所在机构码">
+            <input class="inp" type="text" v-model="code" placeholder="请输入合作码">
             <img class="btn" @click="path" src="@/assets/bus_button.png" alt="">
         </div>
         <!-- <div class="tagBox">推荐码获取方式：1.联系我司区域业务顾问获取；2.联系本平台客服；（若上述途径无法解决，拨打合作专员电话：13386107953）</div> -->
@@ -194,7 +194,7 @@ export default {
     // }
     .fromBox{
         text-align: center;
-        .btn{ width: 196px; height: 95px; margin-left: 29px; }
+        .btn{ width: 231px; height: 95px; }
         .inp{
             vertical-align: top;
             margin-top: 6px;
